@@ -1,0 +1,56 @@
+############################
+# OS / Editor
+############################
+.DS_Store
+Thumbs.db
+*.log
+/.idea
+/.vscode
+/.fleet
+/.zed
+/.nova
+
+############################
+# Environment files
+############################
+.env
+.env.*
+!.env.example
+
+############################
+# Backend (Laravel)
+############################
+/backend/vendor
+/backend/node_modules
+/backend/storage/*.key
+/backend/storage/pail
+/backend/public/storage
+/backend/public/build
+/backend/public/hot
+/backend/.phpunit.cache
+/backend/phpunit.result.cache
+/backend/auth.json
+/backend/Homestead.json
+/backend/Homestead.yaml
+
+############################
+# Frontend (Next.js)
+############################
+/frontend/node_modules
+/frontend/.next
+/frontend/out
+/frontend/build
+/frontend/.pnp
+/frontend/.pnp.js
+/frontend/.vercel
+/frontend/coverage
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+/frontend/*.tsbuildinfo
+/frontend/next-env.d.ts
+
+############################
+# Misc
+############################
+*.pem
