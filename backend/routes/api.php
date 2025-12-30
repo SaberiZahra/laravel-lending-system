@@ -9,6 +9,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,16 +31,35 @@ Route::get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-/* ========== PROTECTED ROUTES (Require Sanctum authentication) ========== */
+// NEW: Public endpoints for guests (homepage)
+Route::get('/public/items', [ItemController::class, 'publicIndex']);         // All active items with listings
+Route::get('/public/listings', [ListingController::class, 'publicIndex']);   // All active listings
+Route::get('/public/categories', [CategoryController::class, 'index']);      // All categories (tree or flat)
+
 Route::middleware('auth:sanctum')->group(function () {
 
-    /* ----- Authentication ----- */
-    Route::post('/logout', [AuthController::class, 'logout']);     // Logout and revoke all tokens
-    Route::get('/me', [AuthController::class, 'me']);             // Get current authenticated user details
+    /* ========== ADMIN ROUTES ========== */
+    Route::middleware('admin')->group(function () {
+        Route::get('/admin/users', [UserController::class, 'index']);
+        Route::get('/admin/users/{user}', [UserController::class, 'show']);
 
-    /* ----- User Profile ----- */
-    Route::get('/profile', [UserController::class, 'profile']);   // Get authenticated user's profile
-    Route::put('/profile', [UserController::class, 'update']);    // Update authenticated user's profile
+        Route::get('/admin/reports', [ReportController::class, 'index']);
+        Route::get('/admin/reports/{report}', [ReportController::class, 'show']);
+        Route::patch('/admin/reports/{report}', [ReportController::class, 'updateStatus']);
+    });
+
+    /* ========== AUTH ========== */
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+
+    /* ========== PROFILE ========== */
+    Route::get('/profile', [UserController::class, 'profile']);
+    Route::put('/profile', [UserController::class, 'update']);
+
+    Route::apiResource('items', ItemController::class);
+    Route::apiResource('listings', ListingController::class);
+});
+
 
     /* ----- Items Resource (RESTful) ----- */
     // GET    /api/items           → index
@@ -64,4 +84,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/conversations', [MessageController::class, 'conversations']);      // Get all conversations for authenticated user
     Route::get('/messages/{conversation}', [MessageController::class, 'messages']); // Get messages in a specific conversation
     Route::post('/messages', [MessageController::class, 'send']);                   // Send a new message
-});

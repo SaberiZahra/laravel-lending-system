@@ -18,6 +18,22 @@ class ItemController extends Controller
     }
 
     /**
+     * Display all active items with their listings for public/guest users (homepage).
+     */
+    public function publicIndex()
+    {
+        $items = Item::with(['category', 'listings' => function ($query) {
+            $query->where('status', 'active');
+        }])
+            ->whereHas('listings', function ($query) {
+                $query->where('status', 'active');
+            })
+            ->get();
+
+        return response()->json($items);
+    }
+
+    /**
      * Store a newly created item for the authenticated user.
      */
     public function store(Request $request)

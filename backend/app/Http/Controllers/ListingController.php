@@ -18,6 +18,19 @@ class ListingController extends Controller
     }
 
     /**
+     * Display all active listings for public/guest users (homepage).
+     */
+    public function publicIndex()
+    {
+        $listings = Listing::with(['item.category', 'item.owner'])
+            ->where('status', 'active')
+            ->latest()
+            ->get();
+
+        return response()->json($listings);
+    }
+
+    /**
      * Store a new listing for an item owned by the user.
      */
     public function store(Request $request)
