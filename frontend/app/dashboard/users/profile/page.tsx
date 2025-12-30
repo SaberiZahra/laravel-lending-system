@@ -13,12 +13,15 @@ type User = {
   trust_score: number;
   status: string;
   listings: Listing[];
+  imageUrl: string;
+  title:string;
 };
 
 type Listing = {
   id: number;
   title: string;
   price: string;
+  imageUrl: string;
   status: string;
 };
 
@@ -65,8 +68,13 @@ export default function ProfilePage() {
     <div className="space-y-8">
       {/* Header */}
       <section className="bg-white rounded-2xl shadow p-6 flex items-center gap-6">
-        <div className="h-24 w-24 rounded-full bg-slate-200" />
-
+        <div className="h-24 w-24 rounded-full verflow-hidden" >
+          <img
+          src={user.imageUrl}     // <-- اینجا عکس واقعی
+          alt={user.title}         // توضیح عکس برای دسترس‌پذیری
+          className="h-full w-full object-cover"
+        />
+        </div>
         <div>
           <h1 className="text-2xl font-bold">{user.name}</h1>
           <p className="text-slate-500">@{user.username}</p>
@@ -95,7 +103,7 @@ export default function ProfilePage() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {user.listings.map((listing) => (
-            <MyListingCard key={listing.id} listing={listing} />
+            <MyListingCard key={listing.id} listing={listing}  />
           ))}
         </div>
       </section>
@@ -115,8 +123,13 @@ function InfoItem({ label, value }: { label: string; value: string }) {
 function MyListingCard({ listing }: { listing: Listing }) {
   return (
     <div className="bg-white rounded-xl shadow p-4 space-y-2">
-      <div className="h-32 rounded-lg bg-slate-200" />
-
+      <div className="h-32 rounded-lg verflow-hidden" >
+        <img
+          src={listing.imageUrl}     // <-- اینجا عکس واقعی
+          alt={listing.title}         // توضیح عکس برای دسترس‌پذیری
+          className="h-full w-full object-cover"
+        />
+      </div>  
       <h3 className="font-semibold">{listing.title}</h3>
 
       <p className="text-sm text-slate-500">

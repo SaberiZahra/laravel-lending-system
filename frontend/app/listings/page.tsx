@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { getListings } from "../lib/api";
+import { getListings } from "@/lib/api";
+import Link from "next/link";
 
 type Listing = {
   id: number;
@@ -18,10 +19,14 @@ export default async function ListingsPage() {
   return (
     <div className="grid grid-cols-3 gap-6">
       {listings.map((item: any) => (
-        <div key={item.id} className="bg-white p-4 rounded-xl shadow">
+       <Link
+        key={item.id}
+        href={`/listings/${item.id}`}
+        className="block"
+      >
           <h3>{item.title}</h3>
           <p>{item.daily_fee} تومان / روز</p>
-        </div>
+        </Link>
       ))}
     </div>
   );
