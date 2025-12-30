@@ -1,126 +1,119 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  getConversations,
+  getMessages,
+  sendMessage,
+} from "@/lib/api";
+
+interface Conversation {
+  id: number;
+  other_user: {
+    name: string;
+  };
+}
+
+interface Message {
+  id: number;
+  body: string;
+  sender_id: number;
+  created_at: string;
+}
+
 export default function MessagesPage() {
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [activeConversation, setActiveConversation] =
+    useState<Conversation | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [newMessage, setNewMessage] = useState("");
+
+  useEffect(() => {
+    loadConversations();
+  }, []);
+
+  async function loadConversations() {
+    const data = await getConversations();
+    setConversations(data);
+  }
+
+  async function openConversation(conv: Conversation) {
+    setActiveConversation(conv);
+    const msgs = await getMessages(conv.id);
+    setMessages(msgs);
+  }
+
+  async function handleSend() {
+    if (!newMessage.trim() || !activeConversation) return;
+
+    await sendMessage({
+      conversation_id: activeConversation.id,
+      body: newMessage,
+    });
+
+    setNewMessage("");
+    openConversation(activeConversation); // refresh
+  }
+
   return (
-    <div className="h-[calc(100vh-3rem)] bg-white rounded-2xl shadow overflow-hidden flex">
-      {/* Conversations List */}
-      <aside className="w-80 border-l border-slate-200 overflow-y-auto">
-        <ConversationItem
-          name="محمد رضایی"
-          lastMessage="سلام، برای اجاره دوربین پیام دادم"
-          time="10:32"
-          unread
-        />
-        <ConversationItem
-          name="علی احمدی"
-          lastMessage="باشه، فردا تحویل میدم"
-          time="دیروز"
-        />
-        <ConversationItem
-          name="سارا کریمی"
-          lastMessage="ممنون از پاسخ‌گویی"
-          time="2 روز پیش"
-        />
+    <div className="grid grid-cols-12 gap-6 h-[70vh]">
+      {/* Conversations */}
+      <aside className="col-span-4 bg-white rounded-2xl shadow p-4 space-y-2 overflow-y-auto">
+        <h2 className="font-semibold mb-3">گفتگوها</h2>
+
+        {conversations.map((c) => (
+          <button
+            key={c.id}
+            onClick={() => openConversation(c)}
+            className={`w-full text-right px-3 py-2 rounded-lg hover:bg-slate-100 ${
+              activeConversation?.id === c.id
+                ? "bg-slate-100"
+                : ""
+            }`}
+          >
+            {c.other_user.name}
+          </button>
+        ))}
       </aside>
 
-      {/* Chat Area */}
-      <section className="flex-1 flex flex-col">
-        {/* Header */}
-        <header className="border-b border-slate-200 p-4">
-          <h2 className="font-semibold">محمد رضایی</h2>
-          <p className="text-xs text-slate-500">
-            آنلاین
-          </p>
-        </header>
-
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
-          <MessageBubble
-            text="سلام، دوربین هنوز موجوده؟"
-            isOwn={false}
-            time="10:20"
-          />
-          <MessageBubble
-            text="بله، در دسترسه"
-            isOwn
-            time="10:22"
-          />
-          <MessageBubble
-            text="عالیه، برای آخر هفته می‌خوام"
-            isOwn={false}
-            time="10:23"
-          />
-        </div>
-
-        {/* Input */}
-        <footer className="border-t border-slate-200 p-4">
-          <div className="flex gap-2">
-            <input
-              placeholder="پیام خود را بنویسید..."
-              className="flex-1 border rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400"
-            />
-            <button className="px-4 py-2 rounded-xl bg-slate-900 text-white hover:bg-slate-800">
-              ارسال
-            </button>
+      {/* Messages */}
+      <section className="col-span-8 bg-white rounded-2xl shadow flex flex-col">
+        {!activeConversation ? (
+          <div className="flex items-center justify-center h-full text-slate-500">
+            یک گفتگو را انتخاب کنید
           </div>
-        </footer>
+        ) : (
+          <>
+            {/* Messages list */}
+            <div className="flex-1 p-4 space-y-3 overflow-y-auto">
+              {messages.map((m) => (
+                <div
+                  key={m.id}
+                  className="bg-slate-100 rounded-lg p-2 text-sm"
+                >
+                  {m.body}
+                </div>
+              ))}
+            </div>
+
+            {/* Input */}
+            <div className="border-t p-3 flex gap-2">
+              <input
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                className="flex-1 border rounded-lg px-3 py-2 text-sm"
+                placeholder="پیام خود را بنویسید..."
+              />
+              <button
+                onClick={handleSend}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700"
+              >
+                ارسال
+              </button>
+            </div>
+          </>
+        )}
       </section>
-    </div>
-  );
-}
-
-/* ================================
-   Components
-================================ */
-
-function ConversationItem({
-  name,
-  lastMessage,
-  time,
-  unread = false,
-}: {
-  name: string;
-  lastMessage: string;
-  time: string;
-  unread?: boolean;
-}) {
-  return (
-    <div
-      className={`p-4 cursor-pointer border-b border-slate-100 hover:bg-slate-50
-      ${unread ? "bg-slate-100" : ""}`}
-    >
-      <div className="flex justify-between items-center">
-        <p className="font-medium">{name}</p>
-        <span className="text-xs text-slate-400">{time}</span>
-      </div>
-      <p className="text-sm text-slate-500 truncate mt-1">
-        {lastMessage}
-      </p>
-    </div>
-  );
-}
-
-function MessageBubble({
-  text,
-  isOwn,
-  time,
-}: {
-  text: string;
-  isOwn: boolean;
-  time: string;
-}) {
-  return (
-    <div
-      className={`max-w-xs md:max-w-md px-4 py-2 rounded-2xl text-sm
-      ${isOwn
-        ? "ml-auto bg-slate-900 text-white"
-        : "mr-auto bg-white border"}`}
-    >
-      <p>{text}</p>
-      <span
-        className={`block mt-1 text-xs
-        ${isOwn ? "text-slate-300" : "text-slate-400"}`}
-      >
-        {time}
-      </span>
     </div>
   );
 }

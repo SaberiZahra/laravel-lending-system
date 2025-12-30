@@ -114,3 +114,26 @@ export async function rejectLoan(loanId: number | string) {
   const res = await api.post(`/loans/${loanId}/reject`);
   return res.data;
 }
+
+/* ===================== MESSAGES ===================== */
+
+// لیست گفتگوها
+export async function getConversations() {
+  const res = await api.get("/conversations");
+  return res.data;
+}
+
+// پیام‌های یک گفتگو
+export async function getMessages(conversationId: number | string) {
+  const res = await api.get(`/messages/${conversationId}`);
+  return res.data;
+}
+
+// ارسال پیام
+export async function sendMessage(data: {
+  conversation_id: number;
+  body: string;
+}) {
+  const res = await api.post("/messages", data);
+  return res.data;
+}

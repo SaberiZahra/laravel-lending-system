@@ -133,7 +133,7 @@ function MyListingCard({ listing }: { listing: Listing }) {
       <h3 className="font-semibold">{listing.title}</h3>
 
       <p className="text-sm text-slate-500">
-        اجاره روزانه: {listing.price}
+        اجاره روزانه:{listing.price}
       </p>
 
       <div className="flex justify-between items-center">
@@ -148,3 +148,6 @@ function MyListingCard({ listing }: { listing: Listing }) {
     </div>
   );
 }
+
+
+
