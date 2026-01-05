@@ -49,6 +49,8 @@ Thumbs.db
 /frontend/yarn-error.log*
 /frontend/*.tsbuildinfo
 /frontend/next-env.d.ts
+/frontend/public
+
 
 ############################
 # Misc
