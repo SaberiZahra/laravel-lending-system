@@ -2,37 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { loansAPI } from "@/lib/api";
-import { isAuthenticated, getUser } from "@/lib/auth";
-
-type Loan = {
-  id: number;
-  status: string;
-  start_date: string;
-  end_date: string;
-  request_date: string;
-  listing: {
-    id: number;
-    title: string;
-    item: {
-      id: number;
-      title: string;
-      images_json?: string | null;
-    };
-  };
-  borrower?: {
-    id: number;
-    full_name: string;
-    username: string;
-  };
-};
+import { loansAPI, authAPI } from "@/lib/api";
+import { isAuthenticated } from "@/lib/auth";
+import Link from "next/link";
+import { Loan } from "@/lib/api";  // تایپ Loan از api.ts ایمپورت کن
 
 export default function LoansPage() {
   const router = useRouter();
-  const [loans, setLoans] = useState<Loan[]>([]);
+  const [allLoans, setAllLoans] = useState<Loan[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const user = getUser();
+  const [user, setUser] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState<"my-requests" | "incoming">("my-requests");
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -40,212 +20,67 @@ export default function LoansPage() {
       return;
     }
 
-    const fetchLoans = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
-        const data = await loansAPI.getMyLoans();
-        setLoans(data || []);
+        const userData = await authAPI.me();
+        const loansData = await loansAPI.getMyLoans();
+
+        setUser(userData);
+        setAllLoans(loansData || []);
       } catch (err: any) {
-        setError(err.response?.data?.message || "Failed to load loans");
+        alert("خطا در بارگذاری درخواست‌ها: " + (err.message || ""));
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLoans();
+    fetchData();
   }, [router]);
 
-  const handleApprove = async (loanId: number) => {
-    if (!confirm("Are you sure you want to approve this loan?")) return;
+  // ... بقیه کد (handleApprove, handleReject, renderLoans, etc) دقیقاً مثل کد فعلی‌ات
 
-    try {
-      await loansAPI.approve(loanId);
-      setLoans((prev) =>
-        prev.map((loan) =>
-          loan.id === loanId ? { ...loan, status: "approved" } : loan
-        )
-      );
-    } catch (err: any) {
-      alert(err.response?.data?.message || "Failed to approve loan");
-    }
-  };
+  const isAdmin = user?.role === 1;
+  const currentUserId = user?.id;
 
-  const handleReject = async (loanId: number) => {
-    if (!confirm("Are you sure you want to reject this loan?")) return;
+  const myRequests = allLoans.filter((loan) => loan.borrower?.id === currentUserId);
+  const incomingRequests = allLoans.filter((loan) => loan.listing?.item?.owner_id === currentUserId);
 
-    try {
-      await loansAPI.reject(loanId);
-      setLoans((prev) =>
-        prev.map((loan) =>
-          loan.id === loanId ? { ...loan, status: "rejected" } : loan
-        )
-      );
-    } catch (err: any) {
-      alert(err.response?.data?.message || "Failed to reject loan");
-    }
-  };
+  // ... توابع formatDate, getImageUrl, getOwnerName, statusConfig, getStatus
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading loans...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 mb-4">{error}</p>
-          <button
-            onClick={() => router.push("/dashboard")}
-            className="text-blue-600 hover:underline"
-          >
-            Back to Dashboard
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // renderLoans همون کد قبلی
 
   return (
-    <div className="space-y-8">
-      {/* Page Header */}
-      <header>
-        <h1 className="text-2xl font-bold">درخواست‌های امانت</h1>
-        <p className="text-slate-500 mt-1">
-          وضعیت درخواست‌ها و امانت‌های شما
-        </p>
-      </header>
-
-      {/* Loans List */}
-      {loans.length === 0 ? (
-        <div className="bg-white rounded-2xl shadow p-6 text-center">
-          <p className="text-gray-600">درخواستی یافت نشد</p>
-        </div>
-      ) : (
-        <section className="space-y-4">
-          {loans.map((loan) => (
-            <LoanCard
-              key={loan.id}
-              loan={loan}
-              currentUserId={user?.id}
-              onApprove={handleApprove}
-              onReject={handleReject}
-            />
-          ))}
-        </section>
-      )}
-    </div>
-  );
-}
-
-function LoanCard({
-  loan,
-  currentUserId,
-  onApprove,
-  onReject,
-}: {
-  loan: Loan;
-  currentUserId?: number;
-  onApprove: (id: number) => void;
-  onReject: (id: number) => void;
-}) {
-  const statusMap: {
-    [key: string]: { label: string; className: string };
-  } = {
-    requested: {
-      label: "در انتظار تأیید",
-      className: "bg-amber-100 text-amber-700",
-    },
-    approved: {
-      label: "تأیید شده",
-      className: "bg-blue-100 text-blue-700",
-    },
-    borrowed: {
-      label: "امانت گرفته شده",
-      className: "bg-green-100 text-green-700",
-    },
-    returned: {
-      label: "بازگردانده شده",
-      className: "bg-gray-100 text-gray-700",
-    },
-    rejected: {
-      label: "رد شده",
-      className: "bg-red-100 text-red-700",
-    },
-  };
-
-  const status = statusMap[loan.status] || statusMap.requested;
-  const isOwner = loan.listing.item && currentUserId === loan.listing.item.id;
-
-  const images = loan.listing.item.images_json
-    ? (typeof loan.listing.item.images_json === "string"
-        ? JSON.parse(loan.listing.item.images_json)
-        : loan.listing.item.images_json)
-    : [];
-  const imageUrl =
-    images.length > 0
-      ? images[0]
-      : "https://via.placeholder.com/400x300/cccccc/000000?text=No+Image";
-
-  return (
-    <div className="bg-white rounded-2xl shadow p-6 space-y-3">
-      <div className="flex gap-4">
-        <div className="w-24 h-24 rounded-lg bg-gray-200 overflow-hidden flex-shrink-0">
-          <img
-            src={imageUrl}
-            alt={loan.listing.title}
-            className="w-full h-full object-cover"
-          />
+      <div className="min-h-screen bg-gray-50">
+        {/* هدر */}
+        <div dir="rtl" className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-3xl p-10 mx-4 sm:mx-8 lg:mx-auto lg:max-w-6xl my-10 text-white shadow-2xl">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+            <div>
+              <h1 className="text-4xl font-bold mb-3">درخواست‌های امانت</h1>
+              <p className="text-xl text-blue-100">مدیریت درخواست‌های ارسال و دریافت کالا</p>
+            </div>
+            <Link href="/dashboard" className="px-8 py-4 bg-white/20 backdrop-blur rounded-2xl hover:bg-white/30 transition font-medium text-center">
+              ← بازگشت به داشبورد
+            </Link>
+          </div>
         </div>
 
-        <div className="flex-1">
-          <div className="flex justify-between items-start">
-            <h3 className="font-semibold text-lg">{loan.listing.title}</h3>
-            <span
-              className={`text-xs px-3 py-1 rounded-full ${status.className}`}
-            >
-              {status.label}
-            </span>
+        <div dir="rtl" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+          {/* تب‌ها فقط برای کاربر عادی */}
+          <div className="flex gap-8 mb-10 border-b border-gray-200 overflow-x-auto">
+            <button onClick={() => setActiveTab("my-requests")} className={`pb-4 px-2 text-lg font-semibold border-b-4 transition whitespace-nowrap ${activeTab === "my-requests" ? "border-indigo-600 text-indigo-600" : "border-transparent text-gray-600"}`}>
+              درخواست‌های من ({myRequests.length})
+            </button>
+            <button onClick={() => setActiveTab("incoming")} className={`pb-4 px-2 text-lg font-semibold border-b-4 transition whitespace-nowrap ${activeTab === "incoming" ? "border-indigo-600 text-indigo-600" : "border-transparent text-gray-600"}`}>
+              درخواست‌های دریافتی ({incomingRequests.length})
+            </button>
           </div>
 
-          <div className="text-sm text-slate-600 space-y-1 mt-2">
-            {loan.borrower && (
-              <p>
-                امانت‌گیرنده: {loan.borrower.full_name} (@{loan.borrower.username})
-              </p>
-            )}
-            <p>
-              بازه امانت: {new Date(loan.start_date).toLocaleDateString('fa-IR')} -{" "}
-              {new Date(loan.end_date).toLocaleDateString('fa-IR')}
-            </p>
-            <p>درخواست شده: {new Date(loan.request_date).toLocaleDateString('fa-IR')}</p>
+          <div className="grid gap-8">
+            {activeTab === "my-requests" && renderLoans(myRequests, "درخواست‌های من برای امانت")}
+            {activeTab === "incoming" && renderLoans(incomingRequests, "درخواست‌ها برای کالاهای من")}
           </div>
         </div>
       </div>
-
-      {/* Actions */}
-      {loan.status === "requested" && isOwner && (
-        <div className="flex gap-2 pt-2 border-t">
-          <button
-            onClick={() => onApprove(loan.id)}
-            className="px-4 py-2 rounded-lg bg-green-600 text-white text-sm hover:bg-green-700"
-          >
-            تأیید
-          </button>
-          <button
-            onClick={() => onReject(loan.id)}
-            className="px-4 py-2 rounded-lg bg-red-600 text-white text-sm hover:bg-red-700"
-          >
-            رد
-          </button>
-        </div>
-      )}
-    </div>
   );
 }

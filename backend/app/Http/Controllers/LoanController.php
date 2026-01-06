@@ -161,4 +161,17 @@ class LoanController extends Controller
         );
     }
 
+
+    public function indexAll(Request $request)
+    {
+        $loans = Loan::with([
+            'listing.item.owner',
+            'borrower'
+        ])
+            ->orderBy('request_date', 'desc')
+            ->get();
+
+        return response()->json($loans);
+    }
+
 }

@@ -2,467 +2,349 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { authAPI, listingsAPI, loansAPI } from "@/lib/api";
+import { authAPI, listingsAPI, loansAPI, itemsAPI, adminAPI } from "@/lib/api"; // ← adminAPI اضافه شد
 import { isAuthenticated } from "@/lib/auth";
 import Link from "next/link";
-
-type DashboardStats = {
-  totalListings: number;
-  activeListings: number;
-  totalLoans: number;
-  pendingLoans: number;
-};
+import Footer from "@/components/Footer";
 
 type Loan = {
-  id: number;
-  status: string;
-  request_date: string;
-  start_date: string | null;
-  end_date: string | null;
-  listing: {
     id: number;
-    title: string;
-    item: {
-      id: number;
-      title: string;
-      owner_id?: number;
-      owner?: {
+    status: string;
+    request_date: string;
+    start_date: string | null;
+    end_date: string | null;
+    listing: {
         id: number;
-        full_name: string;
-        username: string;
-      };
+        title: string;
+        item: { id: number; title: string };
     };
-  };
-  borrower?: {
-    id: number;
-    full_name: string;
-    username: string;
-  };
+    borrower?: { id: number; full_name: string; username: string };
 };
 
 export default function DashboardPage() {
-  const router = useRouter();
-  const [stats, setStats] = useState<DashboardStats>({
-    totalListings: 0,
-    activeListings: 0,
-    totalLoans: 0,
-    pendingLoans: 0,
-  });
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
-  const [loans, setLoans] = useState<Loan[]>([]);
-  const [adminLoans, setAdminLoans] = useState<Loan[]>([]);
-  const isAdmin = user?.role === 1;
+    const router = useRouter();
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState<any>(null);
+    const [loans, setLoans] = useState<Loan[]>([]);
+    const [adminPendingLoans, setAdminPendingLoans] = useState<Loan[]>([]); // ← تغییر نام و منبع
+    const [items, setItems] = useState<any[]>([]);
+    const [listings, setListings] = useState<any[]>([]);
+    const isAdmin = user?.role === 1;
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push("/login");
-      return;
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            router.push("/login");
+            return;
+        }
+
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const userData = await authAPI.me();
+
+                // درخواست‌های کاربر عادی
+                const myLoansData = await loansAPI.getMyLoans().catch(() => []);
+
+                // فقط اگر ادمین بود، درخواست‌های در انتظار رو بگیر
+                let pendingLoans: Loan[] = [];
+                if (userData?.role === 1) {
+                    try {
+                        const allLoans = await adminAPI.getAllLoans();
+                        pendingLoans = allLoans.filter((l: Loan) => l.status === "requested");
+                    } catch (err) {
+                        console.error("خطا در دریافت درخواست‌های ادمین:", err);
+                        pendingLoans = [];
+                    }
+                }
+
+                const [myItems, listingsData] = await Promise.all([
+                    itemsAPI.getAll().catch(() => []),
+                    listingsAPI.getAll().catch(() => []),
+                ]);
+
+                setUser(userData);
+                setLoans(myLoansData || []);
+                setAdminPendingLoans(pendingLoans);
+                setItems(myItems || []);
+                setListings(listingsData || []);
+            } catch (err) {
+                console.error("Error fetching dashboard data:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [router]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600 mx-auto"></div>
+                    <p className="mt-6 text-lg text-gray-700">در حال بارگذاری...</p>
+                </div>
+            </div>
+        );
     }
 
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const [userData, listingsData, myLoansData, allLoansData] =
-          await Promise.all([
-            authAPI.me(),
-            listingsAPI.getAll().catch(() => []),
-            loansAPI.getMyLoans().catch(() => []),
-            loansAPI.getAll().catch(() => []),
-          ]);
-
-        setUser(userData);
-        setLoans(myLoansData || []);
-        setAdminLoans(allLoansData || []);
-
-        const activeListings = Array.isArray(listingsData)
-          ? listingsData.filter((l: any) => l.status === "active")
-          : [];
-        const pendingLoans = Array.isArray(myLoansData)
-          ? myLoansData.filter((l: any) => l.status === "requested")
-          : [];
-
-        setStats({
-          totalListings: Array.isArray(listingsData) ? listingsData.length : 0,
-          activeListings: activeListings.length,
-          totalLoans: Array.isArray(myLoansData) ? myLoansData.length : 0,
-          pendingLoans: pendingLoans.length,
-        });
-      } catch (err: any) {
-        console.error("Error fetching dashboard data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [router]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mx-auto"></div>
-          <p className="mt-6 text-gray-600 text-lg">در حال بارگذاری...</p>
-        </div>
-      </div>
+    // داده‌های کاربر عادی
+    const myId = user?.id;
+    const myLoanRequests = loans.filter((loan) => loan.borrower?.id === myId);
+    const incomingRequests = loans.filter(
+        (loan) =>
+            loan.listing?.item?.owner?.id === myId && loan.borrower?.id !== myId
     );
-  }
 
-  // ---------- Derived data for user ----------
-  const myId = user?.id;
+    const formatDate = (value: string | null) =>
+        value ? new Date(value).toLocaleDateString("fa-IR") : "-";
 
-  const myLoanRequests = loans.filter(
-    (loan) => loan.borrower && loan.borrower.id === myId
-  );
-
-  const incomingRequests = loans.filter(
-    (loan) =>
-      loan.listing?.item?.owner &&
-      loan.listing.item.owner.id === myId &&
-      loan.borrower &&
-      loan.borrower.id !== myId
-  );
-
-  const isActiveStatus = (status: string) =>
-    ["requested", "approved", "borrowed"].includes(status);
-
-  const myBorrowedActive = myLoanRequests.filter((l) =>
-    isActiveStatus(l.status)
-  );
-  const myBorrowedHistory = myLoanRequests.filter(
-    (l) => !isActiveStatus(l.status)
-  );
-
-  const lentActive = incomingRequests.filter((l) => isActiveStatus(l.status));
-  const lentHistory = incomingRequests.filter((l) => !isActiveStatus(l.status));
-
-  // ---------- Derived data for admin ----------
-  const adminPendingLoans = adminLoans.filter(
-    (l) => l.status === "requested"
-  );
-  const adminActiveLoans = adminLoans.filter((l) =>
-    ["approved", "borrowed"].includes(l.status)
-  );
-  const adminPastLoans = adminLoans.filter(
-    (l) => !["requested", "approved", "borrowed"].includes(l.status)
-  );
-
-  const formatDate = (value: string | null) => {
-    if (!value) return "-";
-    const d = new Date(value);
-    if (Number.isNaN(d.getTime())) return value;
-    return d.toLocaleDateString("fa-IR");
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white">
-          <h1 className="text-3xl font-bold mb-2">داشبورد</h1>
-          {user && (
-            <div className="flex items-center justify-between">
-              <p className="text-blue-100">
-                خوش آمدید، {user.full_name || user.username}!
-              </p>
-              {isAdmin && (
-                <span className="bg-yellow-400 text-yellow-900 px-4 py-2 rounded-full text-sm font-semibold">
-                  مدیر سیستم
-                </span>
-              )}
+    return (
+        <div className="min-h-screen bg-gray-50">
+            {/* هدر */}
+            <div dir="rtl" className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-3xl p-10 mx-4 sm:mx-8 lg:mx-auto lg:max-w-6xl my-10 text-white shadow-2xl">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+                    <div>
+                        <h1 className="text-4xl font-bold mb-3">خوش آمدید!</h1>
+                        <p className="text-2xl text-blue-100">
+                            {user?.full_name || user?.username || "کاربر گرامی"}
+                            {isAdmin && (
+                                <span className="mr-4 bg-yellow-400 text-yellow-900 px-4 py-2 rounded-full text-base font-bold">
+                                    👑 مدیر سیستم
+                                </span>
+                            )}
+                        </p>
+                    </div>
+                    <div className="text-left lg:text-right">
+                        <p className="text-lg text-blue-100">داشبورد شخصی شما</p>
+                    </div>
+                </div>
             </div>
-          )}
+
+            {/* محتوای اصلی — راست‌چین */}
+            <div dir="rtl" className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+                {/* دسترسی سریع */}
+                <div className="mb-20">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">دسترسی سریع</h2>
+
+                    {/* ردیف اول — همیشه ۳ کارت اصلی */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 justify-items-center">
+                        <QuickActionCard
+                            title="کالاهای من"
+                            description="مدیریت کالاهای ثبت شده"
+                            icon="🛍️"
+                            link="/dashboard/users/items"
+                            color="from-blue-500 to-cyan-500"
+                        />
+                        <QuickActionCard
+                            title={isAdmin ? "همه آگهی‌ها" : "آگهی‌های من"}
+                            description="مدیریت آگهی‌های امانت"
+                            icon="📋"
+                            link="/dashboard/users/listings"
+                            color="from-indigo-500 to-purple-500"
+                        />
+                        <QuickActionCard
+                            title="درخواست‌های امانت"
+                            description="مشاهده و مدیریت درخواست‌ها"
+                            icon="📨"
+                            link={isAdmin ? "/dashboard/admin/loans" : "/dashboard/users/loans"} // ← اینجا تغییر مهم!
+                            color="from-green-500 to-emerald-500"
+                        />
+                    </div>
+
+                    {/* ردیف دوم — متفاوت برای کاربر و ادمین */}
+                    <div className={`grid grid-cols-1 ${isAdmin ? "md:grid-cols-4" : "md:grid-cols-3"} gap-8 justify-items-center`}>
+                        {!isAdmin && (
+                            <>
+                                <QuickActionCard
+                                    title="پروفایل من"
+                                    description="تنظیمات و اطلاعات شخصی"
+                                    icon="👤"
+                                    link="/dashboard/users/profile"
+                                    color="from-purple-500 to-pink-500"
+                                />
+                                <QuickActionCard
+                                    title="چت با پشتیبانی"
+                                    description="ارسال پیام به ادمین"
+                                    icon="💬"
+                                    link="/dashboard/users/messages"
+                                    color="from-pink-500 to-rose-500"
+                                />
+                                <div className="hidden md:block w-full" />
+                            </>
+                        )}
+
+                        {isAdmin && (
+                            <>
+                                <QuickActionCard
+                                    title="پروفایل من"
+                                    description="تنظیمات و اطلاعات شخصی"
+                                    icon="👤"
+                                    link="/dashboard/users/profile"
+                                    color="from-purple-500 to-pink-500"
+                                />
+                                <QuickActionCard
+                                    title="دسته‌بندی‌ها"
+                                    description="مدیریت دسته‌بندی کالاها"
+                                    icon="📁"
+                                    link="/dashboard/admin/categories"
+                                    color="from-teal-500 to-cyan-500"
+                                />
+                                <QuickActionCard
+                                    title="کاربران"
+                                    description="مدیریت کاربران سایت"
+                                    icon="👥"
+                                    link="/dashboard/admin/users"
+                                    color="from-orange-500 to-red-500"
+                                />
+                                <QuickActionCard
+                                    title="چت‌ها"
+                                    description="مدیریت پیام‌های کاربران"
+                                    icon="✉️"
+                                    link="/dashboard/admin/messages"
+                                    color="from-amber-500 to-orange-500"
+                                />
+                            </>
+                        )}
+                    </div>
+                </div>
+
+                {/* پیش‌نمایش‌ها */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
+                    <SimplePreview
+                        title="کالاهای من"
+                        items={items.slice(0, 3)}
+                        empty="کالایی ثبت نشده"
+                        link="/dashboard/users/items"
+                    >
+                        {(it) => (
+                            <>
+                                <p className="font-medium text-lg">{it.title}</p>
+                                <p className="text-sm text-gray-500 mt-1">
+                                    {it.category?.title || "بدون دسته"} • {it.item_condition || "نامشخص"}
+                                </p>
+                            </>
+                        )}
+                    </SimplePreview>
+
+                    <SimplePreview
+                        title={isAdmin ? "آگهی‌های اخیر" : "آگهی‌های من"}
+                        items={listings.slice(0, 3)}
+                        empty="آگهی‌ای ثبت نشده"
+                        link="/dashboard/users/listings"
+                    >
+                        {(l) => (
+                            <>
+                                <p className="font-medium text-lg">{l.title}</p>
+                                <p className="text-sm text-gray-500 mt-1">
+                                    {l.daily_fee?.toLocaleString()} تومان/روز • {l.status === "active" ? "فعال" : "متوقف"}
+                                </p>
+                            </>
+                        )}
+                    </SimplePreview>
+                </div>
+
+                {!isAdmin && (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-16">
+                        <SimplePreview
+                            title="درخواست‌های من"
+                            items={myLoanRequests.slice(0, 3)}
+                            empty="درخواستی ثبت نشده"
+                            link="/dashboard/users/loans"
+                        >
+                            {(l) => (
+                                <>
+                                    <p className="font-medium text-lg">{l.listing?.title}</p>
+                                    <p className="text-sm text-gray-500 mt-1">وضعیت: {l.status}</p>
+                                </>
+                            )}
+                        </SimplePreview>
+
+                        <SimplePreview
+                            title="درخواست‌ها برای کالاهای من"
+                            items={incomingRequests.slice(0, 3)}
+                            empty="درخواستی وجود ندارد"
+                            link="/dashboard/users/loans"
+                        >
+                            {(l) => (
+                                <>
+                                    <p className="font-medium text-lg">{l.listing?.title}</p>
+                                    <p className="text-sm text-gray-500 mt-1">
+                                        از: {l.borrower?.full_name || l.borrower?.username || "کاربر"}
+                                    </p>
+                                </>
+                            )}
+                        </SimplePreview>
+                    </div>
+                )}
+
+                {/* بخش ادمین: فقط درخواست‌های در انتظار */}
+                {isAdmin && (
+                    <div className="mb-16">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">مدیریت سیستم</h2>
+                        <SimplePreview
+                            title="درخواست‌های در انتظار تأیید"
+                            items={adminPendingLoans.slice(0, 3)}
+                            empty="درخواست در انتظاری نیست"
+                            link="/dashboard/admin/loans" // ← لینک درست به صفحه ادمین
+                        >
+                            {(l) => (
+                                <>
+                                    <p className="font-medium text-lg">{l.listing?.title}</p>
+                                    <p className="text-sm text-gray-500 mt-1">
+                                        توسط {l.borrower?.full_name || l.borrower?.username || "کاربر"}
+                                    </p>
+                                </>
+                            )}
+                        </SimplePreview>
+                    </div>
+                )}
+            </div>
+
+            <Footer />
         </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatCard
-            title="کل آگهی‌ها"
-            value={stats.totalListings}
-            icon="📋"
-            link="/dashboard/users/listings"
-          />
-          <StatCard
-            title="آگهی‌های فعال"
-            value={stats.activeListings}
-            icon="✅"
-            link="/dashboard/users/listings"
-          />
-          <StatCard
-            title="کل درخواست‌ها"
-            value={stats.totalLoans}
-            icon="📦"
-            link="/dashboard/users/loans"
-          />
-          <StatCard
-            title="درخواست‌های در انتظار"
-            value={stats.pendingLoans}
-            icon="⏳"
-            link="/dashboard/users/loans"
-          />
-        </div>
-
-        {/* Quick Actions */}
-        <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">دسترسی سریع</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link
-              href="/dashboard/users/listings"
-              className="p-4 border rounded-xl hover:bg-gray-50 transition"
-            >
-              <h3 className="font-semibold mb-2">
-                {isAdmin ? "همه آگهی‌ها" : "مدیریت آگهی‌ها"}
-              </h3>
-              <p className="text-sm text-gray-600">
-                {isAdmin ? "مشاهده و مدیریت تمام آگهی‌ها" : "مشاهده و مدیریت آگهی‌های شما"}
-              </p>
-            </Link>
-            <Link
-              href="/dashboard/users/loans"
-              className="p-4 border rounded-xl hover:bg-gray-50 transition"
-            >
-              <h3 className="font-semibold mb-2">مشاهده درخواست‌ها</h3>
-              <p className="text-sm text-gray-600">
-                بررسی وضعیت درخواست‌های امانت
-              </p>
-            </Link>
-            <Link
-              href="/dashboard/users/profile"
-              className="p-4 border rounded-xl hover:bg-gray-50 transition"
-            >
-              <h3 className="font-semibold mb-2">ویرایش پروفایل</h3>
-              <p className="text-sm text-gray-600">
-                به‌روزرسانی اطلاعات پروفایل
-              </p>
-            </Link>
-            {!isAdmin && (
-              <Link
-                href="/dashboard/users/messages"
-                className="p-4 border rounded-xl hover:bg-gray-50 transition"
-              >
-                <h3 className="font-semibold mb-2">چت با ادمین</h3>
-                <p className="text-sm text-gray-600">
-                  ارسال پیام و گفتگو با پشتیبانی
-                </p>
-              </Link>
-            )}
-            {isAdmin && (
-              <>
-                <Link
-                  href="/dashboard/admin/categories"
-                  className="p-4 border rounded-xl hover:bg-gray-50 transition"
-                >
-                  <h3 className="font-semibold mb-2">مدیریت دسته‌بندی‌ها</h3>
-                  <p className="text-sm text-gray-600">
-                    افزودن و ویرایش دسته‌بندی‌ها
-                  </p>
-                </Link>
-                <Link
-                  href="/dashboard/admin/users"
-                  className="p-4 border rounded-xl hover:bg-gray-50 transition"
-                >
-                  <h3 className="font-semibold mb-2">مدیریت کاربران</h3>
-                  <p className="text-sm text-gray-600">
-                    مشاهده و مدیریت کاربران
-                  </p>
-                </Link>
-                <Link
-                  href="/dashboard/admin/messages"
-                  className="p-4 border rounded-xl hover:bg-gray-50 transition"
-                >
-                  <h3 className="font-semibold mb-2">مدیریت پیام‌ها</h3>
-                  <p className="text-sm text-gray-600">
-                    مشاهده و پاسخ به همه چت‌ها
-                  </p>
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* User loan summary sections */}
-        {!isAdmin && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            {/* My requests */}
-            <div className="bg-white rounded-2xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold mb-3">درخواست‌های من برای امانت</h2>
-              {myLoanRequests.length === 0 ? (
-                <p className="text-gray-500 text-sm">درخواستی ثبت نکرده‌اید.</p>
-              ) : (
-                <ul className="space-y-2 text-sm">
-                  {myLoanRequests.slice(0, 5).map((l) => (
-                    <li
-                      key={l.id}
-                      className="flex justify-between items-center border rounded-xl px-3 py-2"
-                    >
-                      <div>
-                        <p className="font-medium">
-                          {l.listing?.title || "آگهی"}
-                        </p>
-                        <p className="text-gray-500 text-xs mt-1">
-                          از {formatDate(l.start_date)} تا {formatDate(l.end_date)}
-                        </p>
-                      </div>
-                      <span className="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-700">
-                        {l.status}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <div className="mt-3 text-left">
-                <Link
-                  href="/dashboard/users/loans"
-                  className="text-blue-600 text-xs hover:underline"
-                >
-                  مشاهده همه
-                </Link>
-              </div>
-            </div>
-
-            {/* Requests on my items */}
-            <div className="bg-white rounded-2xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold mb-3">درخواست‌ها برای وسایل من</h2>
-              {incomingRequests.length === 0 ? (
-                <p className="text-gray-500 text-sm">
-                  درخواستی برای وسایل شما ثبت نشده است.
-                </p>
-              ) : (
-                <ul className="space-y-2 text-sm">
-                  {incomingRequests.slice(0, 5).map((l) => (
-                    <li
-                      key={l.id}
-                      className="flex justify-between items-center border rounded-xl px-3 py-2"
-                    >
-                      <div>
-                        <p className="font-medium">
-                          {l.listing?.title || "آگهی"}
-                        </p>
-                        <p className="text-gray-500 text-xs mt-1">
-                          درخواست توسط {l.borrower?.full_name || l.borrower?.username || "کاربر"}
-                        </p>
-                      </div>
-                      <span className="text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-700">
-                        {l.status}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <div className="mt-3 text-left">
-                <Link
-                  href="/dashboard/users/loans"
-                  className="text-blue-600 text-xs hover:underline"
-                >
-                  مدیریت درخواست‌ها
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Admin loan overview */}
-        {isAdmin && (
-          <div className="space-y-6 mb-8">
-            <div className="bg-white rounded-2xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold mb-3">درخواست‌های امانت در انتظار تأیید</h2>
-              {adminPendingLoans.length === 0 ? (
-                <p className="text-gray-500 text-sm">درخواست در انتظاری وجود ندارد.</p>
-              ) : (
-                <ul className="space-y-2 text-sm">
-                  {adminPendingLoans.slice(0, 8).map((l) => (
-                    <li
-                      key={l.id}
-                      className="flex justify-between items-center border rounded-xl px-3 py-2"
-                    >
-                      <div>
-                        <p className="font-medium">
-                          {l.listing?.title || "آگهی"}
-                        </p>
-                        <p className="text-gray-500 text-xs mt-1">
-                          از {l.borrower?.full_name || l.borrower?.username || "کاربر"}{" "}
-                          برای {l.listing?.item?.title}
-                        </p>
-                      </div>
-                      <span className="text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-700">
-                        {formatDate(l.request_date)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <div className="mt-3 text-left">
-                <Link
-                  href="/dashboard/users/loans"
-                  className="text-blue-600 text-xs hover:underline"
-                >
-                  مدیریت کامل درخواست‌ها
-                </Link>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl shadow-sm p-6">
-              <h2 className="text-lg font-semibold mb-3">امانت‌های فعال</h2>
-              {adminActiveLoans.length === 0 ? (
-                <p className="text-gray-500 text-sm">امانتی در حال حاضر فعال نیست.</p>
-              ) : (
-                <ul className="space-y-2 text-sm">
-                  {adminActiveLoans.slice(0, 8).map((l) => (
-                    <li
-                      key={l.id}
-                      className="flex justify-between items-center border rounded-xl px-3 py-2"
-                    >
-                      <div>
-                        <p className="font-medium">
-                          {l.listing?.title || "آگهی"}
-                        </p>
-                        <p className="text-gray-500 text-xs mt-1">
-                          از {l.borrower?.full_name || l.borrower?.username || "کاربر"}{" "}
-                          تا {formatDate(l.end_date)}
-                        </p>
-                      </div>
-                      <span className="text-xs px-2 py-1 rounded-full bg-green-50 text-green-700">
-                        {l.status}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-      <Footer />
-    </div>
-  );
+    );
 }
 
-function StatCard({
-  title,
-  value,
-  icon,
-  link,
-}: {
-  title: string;
-  value: number;
-  icon: string;
-  link: string;
-}) {
-  return (
-    <Link
-      href={link}
-      className="bg-white rounded-2xl shadow-sm p-6 hover:shadow-md transition"
-    >
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm text-gray-600 mb-1">{title}</p>
-          <p className="text-3xl font-bold">{value}</p>
+// QuickActionCard و SimplePreview دقیقاً مثل قبل
+function QuickActionCard({ title, description, icon, link, color }: { title: string; description: string; icon: string; link: string; color: string; }) {
+    return (
+        <Link href={link} className="group block w-full max-w-sm bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 p-10 text-center border border-gray-100 transform hover:-translate-y-2">
+            <div className={`w-24 h-24 mx-auto mb-6 rounded-3xl bg-gradient-to-br ${color} flex items-center justify-center text-5xl text-white shadow-xl`}>
+                {icon}
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">{title}</h3>
+            <p className="text-base text-gray-600 leading-relaxed mb-6">{description}</p>
+            <p className="text-indigo-600 font-semibold group-hover:text-indigo-700 transition text-lg">
+                وارد شوید →
+            </p>
+        </Link>
+    );
+}
+
+function SimplePreview({ title, items, empty, link, children }: { title: string; items: any[]; empty: string; link: string; children: (item: any) => JSX.Element; }) {
+    return (
+        <div className="bg-white rounded-3xl shadow-2xl p-10 border">
+            <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+                <Link href={link} className="text-indigo-600 hover:underline font-medium text-lg">
+                    مشاهده همه →
+                </Link>
+            </div>
+
+            {items.length === 0 ? (
+                <div className="text-center py-16">
+                    <p className="text-xl text-gray-500">{empty}</p>
+                </div>
+            ) : (
+                <div className="space-y-6">
+                    {items.map((item) => (
+                        <div key={item.id} className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-6 hover:from-gray-100 hover:to-gray-200 transition shadow">
+                            {children(item)}
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
-        <span className="text-4xl">{icon}</span>
-      </div>
-    </Link>
-  );
+    );
 }

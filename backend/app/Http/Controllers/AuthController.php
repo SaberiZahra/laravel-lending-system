@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\PasswordReset;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -119,4 +123,101 @@ class AuthController extends Controller
             'message' => 'Logged out successfully'
         ]);
     }
+
+    public function verifyResetCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'code' => 'required|digits:6',
+        ]);
+
+        $reset = PasswordReset::where('email', $request->email)
+            ->where('token', $request->code)
+            ->first();
+
+        if (!$reset || Carbon::parse($reset->created_at)->addMinutes(15)->isPast()) {
+            return response()->json(['message' => 'کد نامعتبر یا منقضی شده'], 400);
+        }
+
+        return response()->json(['message' => 'کد معتبر است']);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'code' => 'required|digits:6',
+            'password' => 'required|min:6',
+        ]);
+
+        $email = trim(strtolower($request->email));
+
+        $reset = PasswordReset::where('email', $email)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        if (
+            !$reset ||
+            $reset->token !== (string) $request->code ||
+            Carbon::parse($reset->created_at)->addMinutes(15)->isPast()
+        ) {
+            return response()->json(['message' => 'کد نامعتبر یا منقضی شده'], 400);
+        }
+
+        $user = User::where('email', $email)->firstOrFail();
+
+        $user->password_hash = Hash::make($request->password);
+        $user->save();
+
+        PasswordReset::where('email', $email)->delete();
+
+        return response()->json(['message' => 'رمز عبور با موفقیت تغییر یافت']);
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $email = trim(strtolower($request->email));
+
+        // حتی کاربران soft-deleted هم پیدا می‌شوند
+        $user = User::withTrashed()
+            ->where('email', $email)
+            ->first();
+
+        // همیشه پاسخ یکسان (امنیتی)
+        if (!$user) {
+            return response()->json([
+                'message' => 'در صورت وجود حساب، کد بازیابی ارسال شد'
+            ]);
+        }
+
+        // پاک کردن کدهای قبلی
+        PasswordReset::where('email', $email)->delete();
+
+        $code = random_int(100000, 999999);
+
+        PasswordReset::create([
+            'email' => $email,
+            'token' => (string) $code,
+            'created_at' => now(),
+        ]);
+
+        try {
+            Mail::to($user->email)->send(new ResetPasswordMail($code));
+        } catch (\Exception $e) {
+            \Log::error('Email send failed: ' . $e->getMessage());
+
+            return response()->json([
+                'message' => 'خطا در ارسال ایمیل'
+            ], 500);
+        }
+
+        return response()->json([
+            'message' => 'در صورت وجود حساب، کد بازیابی ارسال شد'
+        ]);
+    }
+
 }

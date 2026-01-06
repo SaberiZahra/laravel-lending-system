@@ -78,4 +78,38 @@ class MessageController extends Controller
 
         return response()->json($message->load('sender'), 201);
     }
+
+    /**
+     * Get or create conversation with admin (for support chat)
+     */
+    public function getOrCreateAdminConversation()
+    {
+        $user = auth()->user();
+
+        // Find the first admin (role = 1)
+        $admin = \App\Models\User::where('role', 1)->first();
+
+        if (!$admin) {
+            return response()->json(['message' => 'Admin not found'], 404);
+        }
+
+        // Look for existing conversation between current user and admin
+        $conversation = \App\Models\Conversation::whereHas('participants', function ($q) use ($user) {
+            $q->where('user_id', $user->id);
+        })
+            ->whereHas('participants', function ($q) use ($admin) {
+                $q->where('user_id', $admin->id);
+            })
+            ->first();
+
+        // If not exists → create new one
+        if (!$conversation) {
+            $conversation = \App\Models\Conversation::create();
+            $conversation->participants()->attach([$user->id, $admin->id]);
+        }
+
+        return response()->json([
+            'id' => $conversation->id
+        ]);
+    }
 }

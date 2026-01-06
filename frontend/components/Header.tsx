@@ -75,11 +75,16 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo and Brand */}
           <Link href="/mainPage" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition">
-              <span className="text-white font-bold text-xl">ا</span>
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden shadow-md">
+              <img
+                  src="/slider/logo.png"
+                  alt="لوگو"
+                  className="w-full h-full object-contain"
+              />
             </div>
             <div className="flex flex-col">
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span
+                  className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 اجاره چی
               </span>
               <span className="text-xs text-gray-500">سیستم امانت کالا</span>
@@ -99,71 +104,67 @@ export default function Header() {
               صفحه اصلی
             </Link>
 
-{/* Categories Dropdown */}
-<div className="relative">
-  <button
-    onClick={() => setCategoriesOpen(!categoriesOpen)}
-    className={`px-4 py-2 rounded-lg font-medium transition flex items-center gap-1 ${
-      categoriesOpen
-        ? "text-blue-600 bg-blue-50"
-        : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-    }`}
-  >
-    دسته‌بندی‌ها
-    <ChevronDownIcon className={`w-4 h-4 transition-transform ${categoriesOpen ? "rotate-180" : ""}`} />
-  </button>
+            {/* Categories Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setCategoriesOpen(!categoriesOpen)}
+                className={`px-4 py-2 rounded-lg font-medium transition flex items-center gap-1 ${
+                  categoriesOpen
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"
+                }`}
+              >
+                دسته‌بندی‌ها
+                <ChevronDownIcon className={`w-4 h-4 transition-transform ${categoriesOpen ? "rotate-180" : ""}`} />
+              </button>
 
-  {categoriesOpen && (
-    <>
-      <div
-        className="fixed inset-0 z-10"
-        onClick={() => setCategoriesOpen(false)}
-      />
-      <div className="absolute top-full right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-200 py-3 z-20 max-h-96 overflow-y-auto">
-        {categories.length === 0 ? (
-          <div className="px-4 py-2 text-gray-500 text-sm text-center">
-            دسته‌بندی‌ای موجود نیست
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-2 p-2">
-            {categories.map((category) => (
-              <div key={category.id} className="group">
-                {/* لینک اصلی دسته‌بندی */}
-                <Link
-                  href={`/listings?category=${category.id}`}
-                  className="block px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition font-medium text-sm"
-                  onClick={() => setCategoriesOpen(false)}
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-blue-500 group-hover:bg-blue-600 transition"></div>
-                    {category.title}
+              {categoriesOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setCategoriesOpen(false)}
+                  />
+                  <div className="absolute top-full right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-200 py-3 z-20 max-h-96 overflow-y-auto">
+                    {categories.length === 0 ? (
+                      <div className="px-4 py-2 text-gray-500 text-sm text-center">
+                        دسته‌بندی‌ای موجود نیست
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2 gap-2 p-2">
+                        {categories.map((category) => (
+                          <div key={category.id} className="group">
+                            <Link
+                              href={`/categories/${category.id}`}
+                              className="block px-4 py-3 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition font-medium text-sm"
+                              onClick={() => setCategoriesOpen(false)}
+                            >
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 group-hover:bg-blue-600 transition"></div>
+                                {category.title}
+                              </div>
+                            </Link>
+                            {category.children && category.children.length > 0 && (
+                              <div className="pr-6 mt-1">
+                                {category.children.slice(0, 3).map((child) => (
+                                  <Link
+                                    key={child.id}
+                                    href={`/categories/${child.id}`}
+                                    className="block px-4 py-2 text-xs text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition rounded-lg"
+                                    onClick={() => setCategoriesOpen(false)}
+                                  >
+                                    └ {child.title}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </Link>
-
-                {/* زیرمجموعه‌ها */}
-                {category.children && category.children.length > 0 && (
-                  <div className="pr-6 mt-1">
-                    {category.children.slice(0, 3).map((child) => (
-                      <Link
-                        key={child.id}
-                        href={`/listings?category=${child.id}`}
-                        className="block px-4 py-2 text-xs text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition rounded-lg"
-                        onClick={() => setCategoriesOpen(false)}
-                      >
-                        └ {child.title}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </>
-  )}
-</div>
-                
+                </>
+              )}
+            </div>
 
             <Link
               href="/listings"

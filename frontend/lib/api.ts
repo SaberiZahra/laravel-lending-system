@@ -1,5 +1,34 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 
+type Loan = {
+  id: number;
+  status: "requested" | "approved" | "rejected" | "borrowed" | "returned" | "cancelled";
+  start_date: string;
+  end_date: string;
+  request_date: string;
+  listing: {
+    id: number;
+    title: string;
+    item: {
+      id: number;
+      title: string;
+      owner_id?: number;
+      owner?: {
+        id: number;
+        full_name: string;
+        username: string;
+      };
+      images_json?: string | null;
+    };
+  };
+  borrower?: {
+    id: number;
+    full_name: string;
+    username: string;
+  };
+};
+
+
 // Base URL from environment variable
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000/api';
 
@@ -81,7 +110,25 @@ export const authAPI = {
     const response = await apiClient.get('/me');
     return response.data;
   },
+
+  forgotPassword: async (data: { email: string }) => {
+    const response = await apiClient.post('/forgot-password', data);
+    return response.data;
+  },
+
+  verifyResetCode: async (data: { email: string; code: string }) => {
+    const response = await apiClient.post('/verify-reset-code', data);
+    return response.data;
+  },
+
+  resetPassword: async (data: { email: string; code: string; password: string }) => {
+    const response = await apiClient.post('/reset-password', data);
+    return response.data;
+  },
+
+
 };
+
 
 // Items
 export const itemsAPI = {
@@ -232,10 +279,26 @@ export const adminAPI = {
     return response.data;
   },
 
+  updateUserTrustScore: async (userId: number, score: number) => {
+    const response = await apiClient.patch(
+        `/admin/users/${userId}/trust-score`,
+        {
+          trust_score: score,
+        }
+    );
+    return response.data;
+  },
+
   getUser: async (id: number) => {
     const response = await apiClient.get(`/admin/users/${id}`);
     return response.data;
   },
+
+  getAllLoans: async (): Promise<Loan[]> => {
+    const response = await apiClient.get('/admin/loans/all');
+    return response.data;
+  },
+
 };
 
 // Messages
@@ -257,6 +320,11 @@ export const messagesAPI = {
     });
     return response.data;
   },
+
+  getOrCreateAdminConversation: async () => {
+    const response = await apiClient.get('/admin-conversation');
+    return response.data;
+  },
 };
 
 // Profile
@@ -271,6 +339,7 @@ export const profileAPI = {
     return response.data;
   },
 };
+
 
 // Export default client for custom requests
 export default apiClient;

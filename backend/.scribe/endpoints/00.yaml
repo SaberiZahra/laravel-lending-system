@@ -109,17 +109,41 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      phone:
+        custom: []
+        name: phone
+        description: 'Must not be greater than 30 characters.'
+        required: false
+        example: h
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      address:
+        custom: []
+        name: address
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
     cleanBodyParameters:
       full_name: b
       username: 'n'
       email: ashly64@example.com
       password: pBNvYg
+      phone: h
+      address: architecto
     fileParameters: []
     responses:
       -
         custom: []
-        status: 422
-        content: '{"message":"The username has already been taken. (and 1 more error)","errors":{"username":["The username has already been taken."],"email":["The email has already been taken."]}}'
+        status: 201
+        content: '{"message":"User registered successfully","access_token":"28|aV20h7tnYUp7Bi2Q1l5uGKOTP9nxn6DPa8APvCBY747b3d18","token_type":"Bearer","user":{"full_name":"b","username":"n","email":"ashly64@example.com","phone":"h","address":"architecto","updated_at":"2026-01-06T17:43:46.000000Z","created_at":"2026-01-06T17:43:46.000000Z","id":8}}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -185,6 +209,500 @@ endpoints:
         custom: []
         status: 401
         content: '{"message":"Invalid credentials"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/public/items
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display all active items with their listings for public/guest users (homepage).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":3,"owner_id":3,"category_id":4,"title":"\u0644\u067e\u200c\u062a\u0627\u067e Dell","description":"\u0644\u067e\u200c\u062a\u0627\u067e Dell \u0628\u0627 \u067e\u0631\u062f\u0627\u0632\u0646\u062f\u0647 Intel Core i7","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/df5aa535e7670dd8789ca9b1d9135fe0.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":4,"parent_id":null,"title":"\u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":3,"item_id":3,"title":"\u0627\u062c\u0627\u0631\u0647 \u0644\u067e\u200c\u062a\u0627\u067e Dell","description":"\u0644\u067e\u200c\u062a\u0627\u067e \u0628\u0627 \u067e\u0631\u062f\u0627\u0632\u0646\u062f\u0647 \u0642\u062f\u0631\u062a\u0645\u0646\u062f","daily_fee":"100000.00","deposit_amount":"2000000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-03-05T00:00:00.000000Z","status":"active","view_count":86,"created_at":"2026-01-05T06:50:33.000000Z","updated_at":"2026-01-05T10:37:46.000000Z","deleted_at":null}]},{"id":4,"owner_id":4,"category_id":6,"title":"\u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646","description":"\u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646 \u0628\u0627 \u06a9\u06cc\u0641\u06cc\u062a \u0639\u0627\u0644\u06cc","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/bc2bb19f872f60496b11c3bac04fd520.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":4,"item_id":4,"title":"\u0627\u062c\u0627\u0631\u0647 \u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646","description":"\u062f\u0648\u0686\u0631\u062e\u0647 \u0645\u0646\u0627\u0633\u0628 \u0628\u0631\u0627\u06cc \u06a9\u0648\u0647\u0646\u0648\u0631\u062f\u06cc","daily_fee":"50000.00","deposit_amount":"500000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-05-05T00:00:00.000000Z","status":"active","view_count":58,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T07:17:54.000000Z","deleted_at":null}]},{"id":5,"owner_id":1,"category_id":3,"title":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc","description":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc \u0642\u062f\u0631\u062a\u0645\u0646\u062f","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/b899ad0b235bc522afea8ff39c81790f.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":3,"parent_id":null,"title":"\u0644\u0648\u0627\u0632\u0645 \u062e\u0627\u0646\u06af\u06cc","description":"\u0644\u0648\u0627\u0632\u0645 \u062e\u0627\u0646\u06af\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":5,"item_id":5,"title":"\u0627\u062c\u0627\u0631\u0647 \u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc","description":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc \u0642\u062f\u0631\u062a\u0645\u0646\u062f","daily_fee":"20000.00","deposit_amount":"300000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-06-05T00:00:00.000000Z","status":"active","view_count":35,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T12:42:40.000000Z","deleted_at":null}]},{"id":6,"owner_id":2,"category_id":5,"title":"\u067e\u0627\u0632\u0644 1000 \u062a\u06a9\u0647","description":"\u067e\u0627\u0632\u0644 \u0632\u06cc\u0628\u0627 \u0628\u0627 \u062a\u0635\u0648\u06cc\u0631 \u0637\u0628\u06cc\u0639\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/6e6afbf4e39d88e8f1d377de945c82fa.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":6,"item_id":6,"title":"\u0627\u062c\u0627\u0631\u0647 \u067e\u0627\u0632\u0644 1000 \u062a\u06a9\u0647","description":"\u067e\u0627\u0632\u0644 \u0632\u06cc\u0628\u0627 \u0648 \u0633\u0631\u06af\u0631\u0645\u200c\u06a9\u0646\u0646\u062f\u0647","daily_fee":"10000.00","deposit_amount":"100000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-07-05T00:00:00.000000Z","status":"active","view_count":27,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T11:57:17.000000Z","deleted_at":null}]},{"id":7,"owner_id":3,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u062c\u0646\u06af\u0644\u06cc","description":"\u0628\u0631\u0627\u06cc \u06cc\u06a9 \u06af\u0631\u062f\u0634 \u0627\u0645\u0646 \u0648 \u0628\u0627\u0635\u0641\u0627 \u062f\u0631 \u062c\u0646\u06af\u0644","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/89fb9d307d6332a1c533d2dfa23ce554.jpg"],"created_at":"2026-01-05T13:56:31.000000Z","updated_at":"2026-01-05T13:56:39.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"listings":[{"id":8,"item_id":7,"title":"\u0627\u0628\u0632\u0627\u0631 \u062c\u0646\u06af\u0644\u06cc","description":"\u0628\u0631\u0627\u06cc \u06cc\u06a9 \u06af\u0631\u062f\u0634 \u0627\u0645\u0646 \u0648 \u0628\u0627\u0635\u0641\u0627 \u062f\u0631 \u062c\u0646\u06af\u0644","daily_fee":"44808.00","deposit_amount":"431398.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null}]},{"id":8,"owner_id":4,"category_id":5,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/0c16e7cbc7d74492d92dc71a97634258.jpg"],"created_at":"2026-01-06T13:56:44.000000Z","updated_at":"2026-01-06T13:56:47.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":9,"item_id":8,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","daily_fee":"6714.00","deposit_amount":"123502.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:33:47.000000Z","deleted_at":null}]},{"id":10,"owner_id":2,"category_id":5,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/2ad2e0775fe81e8fe6a4ccefc6636ee2.jpg"],"created_at":"2026-01-05T13:56:57.000000Z","updated_at":"2026-01-05T13:57:00.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":11,"item_id":10,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","daily_fee":"12267.00","deposit_amount":"165970.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":10,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T17:14:58.000000Z","deleted_at":null}]},{"id":11,"owner_id":2,"category_id":6,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/4d7fad73122f9185ce985bff268529c3.jpg"],"created_at":"2026-01-05T13:57:04.000000Z","updated_at":"2026-01-05T13:57:07.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":12,"item_id":11,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","daily_fee":"29384.00","deposit_amount":"171267.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:38:48.000000Z","deleted_at":null}]},{"id":12,"owner_id":4,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/63a85aa0fde2237860b17411c6d4c057.jpg"],"created_at":"2026-01-05T13:57:10.000000Z","updated_at":"2026-01-05T13:57:13.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"listings":[{"id":13,"item_id":12,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","daily_fee":"37482.00","deposit_amount":"720663.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T10:33:30.000000Z","deleted_at":null}]},{"id":13,"owner_id":3,"category_id":5,"title":"\u0641\u06cc\u0644 \u0686\u0648\u0628\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc \u062f\u0633\u062a\u0633\u0627\u0632 \u0648 \u0628\u06cc\u200c\u0646\u0647\u0627\u06cc\u062a \u0632\u06cc\u0628\u0627\u06cc \u0641\u06cc\u0644\u06cc","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/95eb311980d9d95e7ae52f0a737e775b.jpg"],"created_at":"2026-01-05T13:57:16.000000Z","updated_at":"2026-01-05T13:57:20.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":14,"item_id":13,"title":"\u0641\u06cc\u0644 \u0686\u0648\u0628\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc \u062f\u0633\u062a\u0633\u0627\u0632 \u0648 \u0628\u06cc\u200c\u0646\u0647\u0627\u06cc\u062a \u0632\u06cc\u0628\u0627\u06cc \u0641\u06cc\u0644\u06cc","daily_fee":"13859.00","deposit_amount":"104893.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null}]},{"id":14,"owner_id":4,"category_id":5,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/546e1a781d354475da98753ca33984ab.jpg"],"created_at":"2026-01-05T13:57:23.000000Z","updated_at":"2026-01-05T13:57:27.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":15,"item_id":14,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","daily_fee":"9647.00","deposit_amount":"149999.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:21:43.000000Z","deleted_at":null}]},{"id":15,"owner_id":1,"category_id":1,"title":"\u06a9\u062a\u0627\u0628\u06cc \u062e\u06cc\u0627\u0644\u200c\u0627\u0646\u06af\u06cc\u0632","description":"\u0628\u0631\u0627\u06cc \u062e\u0627\u0646\u0645\u200c\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0632\u06cc\u0627\u062f \u0627\u0648\u0631\u062a\u06cc\u0646\u06a9 \u0645\u06cc\u200c\u06a9\u0646\u0646\u062f.","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/42151b6bb9ae2be8e2e08864a0bfacc1.jpg"],"created_at":"2026-01-05T13:57:31.000000Z","updated_at":"2026-01-05T13:57:34.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":16,"item_id":15,"title":"\u06a9\u062a\u0627\u0628\u06cc \u062e\u06cc\u0627\u0644\u200c\u0627\u0646\u06af\u06cc\u0632","description":"\u0628\u0631\u0627\u06cc \u062e\u0627\u0646\u0645\u200c\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0632\u06cc\u0627\u062f \u0627\u0648\u0631\u062a\u06cc\u0646\u06a9 \u0645\u06cc\u200c\u06a9\u0646\u0646\u062f.","daily_fee":"7280.00","deposit_amount":"61188.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:31:35.000000Z","deleted_at":null}]},{"id":16,"owner_id":2,"category_id":5,"title":"\u0645\u06a9\u0639\u0628 \u0631\u0648\u0628\u06cc\u06a9","description":"\u0627\u06af\u0631 \u0646\u0648\u062c\u0648\u0627\u0646\u062a\u0627\u0646 \u0628\u0627\u0647\u0648\u0634 \u0647\u0633\u062a \u0627\u06cc\u0646 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/78371c77f1a3d7f9ded200c18242ae4e.jpg"],"created_at":"2026-01-05T13:57:38.000000Z","updated_at":"2026-01-05T13:57:41.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":17,"item_id":16,"title":"\u0645\u06a9\u0639\u0628 \u0631\u0648\u0628\u06cc\u06a9","description":"\u0627\u06af\u0631 \u0646\u0648\u062c\u0648\u0627\u0646\u062a\u0627\u0646 \u0628\u0627\u0647\u0648\u0634 \u0647\u0633\u062a \u0627\u06cc\u0646 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"5806.00","deposit_amount":"262822.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null}]},{"id":17,"owner_id":3,"category_id":6,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u06af\u0631\u0648\u0647\u06cc","description":"\u0628\u0627 \u0627\u06a9\u06cc\u067e \u062f\u0648\u0633\u062a\u0627\u0646\u062a\u0627\u0646 \u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u062c\u0627\u062f\u0648\u06cc\u06cc \u0631\u0627 \u062a\u062c\u0631\u0628\u0647 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/293212be4ddd17d68acbfaac78d56586.jpg"],"created_at":"2026-01-06T14:23:19.000000Z","updated_at":"2026-01-06T14:23:24.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":18,"item_id":17,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u06af\u0631\u0648\u0647\u06cc","description":"\u0628\u0627 \u0627\u06a9\u06cc\u067e \u062f\u0648\u0633\u062a\u0627\u0646\u062a\u0627\u0646 \u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u062c\u0627\u062f\u0648\u06cc\u06cc \u0631\u0627 \u062a\u062c\u0631\u0628\u0647 \u06a9\u0646\u06cc\u062f","daily_fee":"36573.00","deposit_amount":"440176.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null}]},{"id":18,"owner_id":4,"category_id":6,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/881611da63292e272aa6564a237e5e08.jpg"],"created_at":"2026-01-05T13:57:44.000000Z","updated_at":"2026-01-05T13:57:48.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":19,"item_id":18,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","daily_fee":"20369.00","deposit_amount":"497940.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:01:44.000000Z","deleted_at":null}]},{"id":19,"owner_id":2,"category_id":1,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/1994376031428450fa5c2ac09eb4149c.jpg"],"created_at":"2026-01-05T13:57:51.000000Z","updated_at":"2026-01-06T13:57:54.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":20,"item_id":19,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","daily_fee":"7466.00","deposit_amount":"199262.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":5,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:42:45.000000Z","deleted_at":null}]},{"id":20,"owner_id":1,"category_id":6,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u0646\u0648\u0633\u062a\u0627\u0644\u0698\u06cc","description":"\u0645\u062f\u062a\u06cc\u0647 \u06a9\u0647 \u06af\u0648\u0634\u0647 \u0627\u062a\u0627\u0642 \u0645\u0648\u0646\u062f\u0647 \u0648 \u0627\u06af\u0647 \u0644\u0627\u0632\u0645\u0634 \u062f\u0627\u0631\u06cc\u062f \u0628\u0647\u062a\u0648\u0646 \u0642\u0631\u0636 \u0645\u06cc\u062f\u0645","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/a22eda8cc9e2e7629fdeed8a2180183b.jpg"],"created_at":"2026-01-04T13:57:57.000000Z","updated_at":"2026-01-05T13:58:00.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":21,"item_id":20,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u0646\u0648\u0633\u062a\u0627\u0644\u0698\u06cc","description":"\u0645\u062f\u062a\u06cc\u0647 \u06a9\u0647 \u06af\u0648\u0634\u0647 \u0627\u062a\u0627\u0642 \u0645\u0648\u0646\u062f\u0647 \u0648 \u0627\u06af\u0647 \u0644\u0627\u0632\u0645\u0634 \u062f\u0627\u0631\u06cc\u062f \u0628\u0647\u062a\u0648\u0646 \u0642\u0631\u0636 \u0645\u06cc\u062f\u0645","daily_fee":"36047.00","deposit_amount":"404534.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:29:11.000000Z","deleted_at":null}]},{"id":21,"owner_id":3,"category_id":1,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/b5ede21269b3c45015526682602dc1eb.jpg"],"created_at":"2026-01-02T13:58:02.000000Z","updated_at":"2026-01-06T13:58:07.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":22,"item_id":21,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"4032.00","deposit_amount":"192781.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":6,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:39:24.000000Z","deleted_at":null}]},{"id":22,"owner_id":4,"category_id":1,"title":"\u0627\u0645\u06cc\u0644\u06cc \u0628\u0631\u0627\u0646\u062a","description":"\u062f\u0627\u0633\u062a\u0627\u0646\u06cc \u067e\u0631 \u0627\u0628\u0647\u0627\u0645 \u0648 \u062e\u06cc\u0627\u0644 \u0627\u0646\u06af\u06cc\u0632","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/ce68c376ee804404db4d0c82bc242706.jpg"],"created_at":"2026-01-01T13:58:10.000000Z","updated_at":"2026-01-05T13:58:17.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":23,"item_id":22,"title":"\u0627\u0645\u06cc\u0644\u06cc \u0628\u0631\u0627\u0646\u062a","description":"\u062f\u0627\u0633\u062a\u0627\u0646\u06cc \u067e\u0631 \u0627\u0628\u0647\u0627\u0645 \u0648 \u062e\u06cc\u0627\u0644 \u0627\u0646\u06af\u06cc\u0632","daily_fee":"6502.00","deposit_amount":"122042.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":1,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:43:44.000000Z","deleted_at":null}]},{"id":23,"owner_id":1,"category_id":6,"title":"\u062f\u0633\u062a\u200c\u0647\u0627\u06cc \u0642\u0648\u06cc","description":"\u0628\u0631\u0627\u06cc \u0627\u0648\u0642\u0627\u062a \u0628\u06cc\u06a9\u0627\u0631\u06cc  \u0634\u0645\u0627","item_condition":"new","images_json":"[\"http:\/\/localhost:3000\/items\/e05812eb7d02bcbf8cafd0cfee380da0.jpg\"]","created_at":"2026-01-06T13:58:20.000000Z","updated_at":"2026-01-06T11:12:16.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"listings":[{"id":24,"item_id":23,"title":"\u062f\u0633\u062a\u200c\u0647\u0627\u06cc \u0642\u0648\u06cc","description":"\u0628\u0631\u0627\u06cc \u0627\u0648\u0642\u0627\u062a \u0628\u06cc\u06a9\u0627\u0631\u06cc  \u0634\u0645\u0627","daily_fee":"27996.00","deposit_amount":"283772.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":20,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:30:18.000000Z","deleted_at":null}]},{"id":24,"owner_id":3,"category_id":2,"title":"\u0622\u0686\u0627\u0631","description":"\u0628\u0631\u0627\u06cc \u062a\u0639\u0645\u06cc\u0631\u0627\u062a \u062e\u0627\u0646\u06af\u06cc","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/ee501960fefe13840a013f3c18589c77.jpg"],"created_at":"2026-01-07T13:58:26.000000Z","updated_at":"2026-01-05T13:58:29.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"listings":[{"id":25,"item_id":24,"title":"\u0622\u0686\u0627\u0631","description":"\u0628\u0631\u0627\u06cc \u062a\u0639\u0645\u06cc\u0631\u0627\u062a \u062e\u0627\u0646\u06af\u06cc","daily_fee":"19783.00","deposit_amount":"193278.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":18,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:36:48.000000Z","deleted_at":null}]},{"id":25,"owner_id":2,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u0646\u062c\u0627\u0631\u06cc","description":"\u06cc\u06a9 \u0635\u0646\u062f\u0644\u06cc \u0686\u0648\u0628\u06cc \u0628\u0633\u0627\u0632\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/e6cb403e98a7f28b2c59e46f53a3a83d.jpg"],"created_at":"2026-01-06T13:58:33.000000Z","updated_at":"2026-01-04T13:58:36.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"listings":[{"id":26,"item_id":25,"title":"\u0627\u0628\u0632\u0627\u0631 \u0646\u062c\u0627\u0631\u06cc","description":"\u06cc\u06a9 \u0635\u0646\u062f\u0644\u06cc \u0686\u0648\u0628\u06cc \u0628\u0633\u0627\u0632\u06cc\u062f","daily_fee":"41964.00","deposit_amount":"636689.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":12,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:14:25.000000Z","deleted_at":null}]}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/public/listings
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display all active listings for public/guest users (homepage).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":3,"item_id":3,"title":"\u0627\u062c\u0627\u0631\u0647 \u0644\u067e\u200c\u062a\u0627\u067e Dell","description":"\u0644\u067e\u200c\u062a\u0627\u067e \u0628\u0627 \u067e\u0631\u062f\u0627\u0632\u0646\u062f\u0647 \u0642\u062f\u0631\u062a\u0645\u0646\u062f","daily_fee":"100000.00","deposit_amount":"2000000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-03-05T00:00:00.000000Z","status":"active","view_count":86,"created_at":"2026-01-05T06:50:33.000000Z","updated_at":"2026-01-05T10:37:46.000000Z","deleted_at":null,"item":{"id":3,"owner_id":3,"category_id":4,"title":"\u0644\u067e\u200c\u062a\u0627\u067e Dell","description":"\u0644\u067e\u200c\u062a\u0627\u067e Dell \u0628\u0627 \u067e\u0631\u062f\u0627\u0632\u0646\u062f\u0647 Intel Core i7","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/df5aa535e7670dd8789ca9b1d9135fe0.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":4,"parent_id":null,"title":"\u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":4,"item_id":4,"title":"\u0627\u062c\u0627\u0631\u0647 \u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646","description":"\u062f\u0648\u0686\u0631\u062e\u0647 \u0645\u0646\u0627\u0633\u0628 \u0628\u0631\u0627\u06cc \u06a9\u0648\u0647\u0646\u0648\u0631\u062f\u06cc","daily_fee":"50000.00","deposit_amount":"500000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-05-05T00:00:00.000000Z","status":"active","view_count":58,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T07:17:54.000000Z","deleted_at":null,"item":{"id":4,"owner_id":4,"category_id":6,"title":"\u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646","description":"\u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646 \u0628\u0627 \u06a9\u06cc\u0641\u06cc\u062a \u0639\u0627\u0644\u06cc","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/bc2bb19f872f60496b11c3bac04fd520.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":5,"item_id":5,"title":"\u0627\u062c\u0627\u0631\u0647 \u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc","description":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc \u0642\u062f\u0631\u062a\u0645\u0646\u062f","daily_fee":"20000.00","deposit_amount":"300000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-06-05T00:00:00.000000Z","status":"active","view_count":35,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T12:42:40.000000Z","deleted_at":null,"item":{"id":5,"owner_id":1,"category_id":3,"title":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc","description":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc \u0642\u062f\u0631\u062a\u0645\u0646\u062f","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/b899ad0b235bc522afea8ff39c81790f.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":3,"parent_id":null,"title":"\u0644\u0648\u0627\u0632\u0645 \u062e\u0627\u0646\u06af\u06cc","description":"\u0644\u0648\u0627\u0632\u0645 \u062e\u0627\u0646\u06af\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":6,"item_id":6,"title":"\u0627\u062c\u0627\u0631\u0647 \u067e\u0627\u0632\u0644 1000 \u062a\u06a9\u0647","description":"\u067e\u0627\u0632\u0644 \u0632\u06cc\u0628\u0627 \u0648 \u0633\u0631\u06af\u0631\u0645\u200c\u06a9\u0646\u0646\u062f\u0647","daily_fee":"10000.00","deposit_amount":"100000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-07-05T00:00:00.000000Z","status":"active","view_count":27,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T11:57:17.000000Z","deleted_at":null,"item":{"id":6,"owner_id":2,"category_id":5,"title":"\u067e\u0627\u0632\u0644 1000 \u062a\u06a9\u0647","description":"\u067e\u0627\u0632\u0644 \u0632\u06cc\u0628\u0627 \u0628\u0627 \u062a\u0635\u0648\u06cc\u0631 \u0637\u0628\u06cc\u0639\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/6e6afbf4e39d88e8f1d377de945c82fa.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":24,"item_id":23,"title":"\u062f\u0633\u062a\u200c\u0647\u0627\u06cc \u0642\u0648\u06cc","description":"\u0628\u0631\u0627\u06cc \u0627\u0648\u0642\u0627\u062a \u0628\u06cc\u06a9\u0627\u0631\u06cc  \u0634\u0645\u0627","daily_fee":"27996.00","deposit_amount":"283772.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":20,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:30:18.000000Z","deleted_at":null,"item":{"id":23,"owner_id":1,"category_id":6,"title":"\u062f\u0633\u062a\u200c\u0647\u0627\u06cc \u0642\u0648\u06cc","description":"\u0628\u0631\u0627\u06cc \u0627\u0648\u0642\u0627\u062a \u0628\u06cc\u06a9\u0627\u0631\u06cc  \u0634\u0645\u0627","item_condition":"new","images_json":"[\"http:\/\/localhost:3000\/items\/e05812eb7d02bcbf8cafd0cfee380da0.jpg\"]","created_at":"2026-01-06T13:58:20.000000Z","updated_at":"2026-01-06T11:12:16.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":25,"item_id":24,"title":"\u0622\u0686\u0627\u0631","description":"\u0628\u0631\u0627\u06cc \u062a\u0639\u0645\u06cc\u0631\u0627\u062a \u062e\u0627\u0646\u06af\u06cc","daily_fee":"19783.00","deposit_amount":"193278.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":18,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:36:48.000000Z","deleted_at":null,"item":{"id":24,"owner_id":3,"category_id":2,"title":"\u0622\u0686\u0627\u0631","description":"\u0628\u0631\u0627\u06cc \u062a\u0639\u0645\u06cc\u0631\u0627\u062a \u062e\u0627\u0646\u06af\u06cc","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/ee501960fefe13840a013f3c18589c77.jpg"],"created_at":"2026-01-07T13:58:26.000000Z","updated_at":"2026-01-05T13:58:29.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":26,"item_id":25,"title":"\u0627\u0628\u0632\u0627\u0631 \u0646\u062c\u0627\u0631\u06cc","description":"\u06cc\u06a9 \u0635\u0646\u062f\u0644\u06cc \u0686\u0648\u0628\u06cc \u0628\u0633\u0627\u0632\u06cc\u062f","daily_fee":"41964.00","deposit_amount":"636689.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":12,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:14:25.000000Z","deleted_at":null,"item":{"id":25,"owner_id":2,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u0646\u062c\u0627\u0631\u06cc","description":"\u06cc\u06a9 \u0635\u0646\u062f\u0644\u06cc \u0686\u0648\u0628\u06cc \u0628\u0633\u0627\u0632\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/e6cb403e98a7f28b2c59e46f53a3a83d.jpg"],"created_at":"2026-01-06T13:58:33.000000Z","updated_at":"2026-01-04T13:58:36.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":11,"item_id":10,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","daily_fee":"12267.00","deposit_amount":"165970.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":10,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T17:14:58.000000Z","deleted_at":null,"item":{"id":10,"owner_id":2,"category_id":5,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/2ad2e0775fe81e8fe6a4ccefc6636ee2.jpg"],"created_at":"2026-01-05T13:56:57.000000Z","updated_at":"2026-01-05T13:57:00.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":22,"item_id":21,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"4032.00","deposit_amount":"192781.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":6,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:39:24.000000Z","deleted_at":null,"item":{"id":21,"owner_id":3,"category_id":1,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/b5ede21269b3c45015526682602dc1eb.jpg"],"created_at":"2026-01-02T13:58:02.000000Z","updated_at":"2026-01-06T13:58:07.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":20,"item_id":19,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","daily_fee":"7466.00","deposit_amount":"199262.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":5,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:42:45.000000Z","deleted_at":null,"item":{"id":19,"owner_id":2,"category_id":1,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/1994376031428450fa5c2ac09eb4149c.jpg"],"created_at":"2026-01-05T13:57:51.000000Z","updated_at":"2026-01-06T13:57:54.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":12,"item_id":11,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","daily_fee":"29384.00","deposit_amount":"171267.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:38:48.000000Z","deleted_at":null,"item":{"id":11,"owner_id":2,"category_id":6,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/4d7fad73122f9185ce985bff268529c3.jpg"],"created_at":"2026-01-05T13:57:04.000000Z","updated_at":"2026-01-05T13:57:07.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":13,"item_id":12,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","daily_fee":"37482.00","deposit_amount":"720663.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T10:33:30.000000Z","deleted_at":null,"item":{"id":12,"owner_id":4,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/63a85aa0fde2237860b17411c6d4c057.jpg"],"created_at":"2026-01-05T13:57:10.000000Z","updated_at":"2026-01-05T13:57:13.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":19,"item_id":18,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","daily_fee":"20369.00","deposit_amount":"497940.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:01:44.000000Z","deleted_at":null,"item":{"id":18,"owner_id":4,"category_id":6,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/881611da63292e272aa6564a237e5e08.jpg"],"created_at":"2026-01-05T13:57:44.000000Z","updated_at":"2026-01-05T13:57:48.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":9,"item_id":8,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","daily_fee":"6714.00","deposit_amount":"123502.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:33:47.000000Z","deleted_at":null,"item":{"id":8,"owner_id":4,"category_id":5,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/0c16e7cbc7d74492d92dc71a97634258.jpg"],"created_at":"2026-01-06T13:56:44.000000Z","updated_at":"2026-01-06T13:56:47.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":15,"item_id":14,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","daily_fee":"9647.00","deposit_amount":"149999.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:21:43.000000Z","deleted_at":null,"item":{"id":14,"owner_id":4,"category_id":5,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/546e1a781d354475da98753ca33984ab.jpg"],"created_at":"2026-01-05T13:57:23.000000Z","updated_at":"2026-01-05T13:57:27.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":16,"item_id":15,"title":"\u06a9\u062a\u0627\u0628\u06cc \u062e\u06cc\u0627\u0644\u200c\u0627\u0646\u06af\u06cc\u0632","description":"\u0628\u0631\u0627\u06cc \u062e\u0627\u0646\u0645\u200c\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0632\u06cc\u0627\u062f \u0627\u0648\u0631\u062a\u06cc\u0646\u06a9 \u0645\u06cc\u200c\u06a9\u0646\u0646\u062f.","daily_fee":"7280.00","deposit_amount":"61188.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:31:35.000000Z","deleted_at":null,"item":{"id":15,"owner_id":1,"category_id":1,"title":"\u06a9\u062a\u0627\u0628\u06cc \u062e\u06cc\u0627\u0644\u200c\u0627\u0646\u06af\u06cc\u0632","description":"\u0628\u0631\u0627\u06cc \u062e\u0627\u0646\u0645\u200c\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0632\u06cc\u0627\u062f \u0627\u0648\u0631\u062a\u06cc\u0646\u06a9 \u0645\u06cc\u200c\u06a9\u0646\u0646\u062f.","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/42151b6bb9ae2be8e2e08864a0bfacc1.jpg"],"created_at":"2026-01-05T13:57:31.000000Z","updated_at":"2026-01-05T13:57:34.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":21,"item_id":20,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u0646\u0648\u0633\u062a\u0627\u0644\u0698\u06cc","description":"\u0645\u062f\u062a\u06cc\u0647 \u06a9\u0647 \u06af\u0648\u0634\u0647 \u0627\u062a\u0627\u0642 \u0645\u0648\u0646\u062f\u0647 \u0648 \u0627\u06af\u0647 \u0644\u0627\u0632\u0645\u0634 \u062f\u0627\u0631\u06cc\u062f \u0628\u0647\u062a\u0648\u0646 \u0642\u0631\u0636 \u0645\u06cc\u062f\u0645","daily_fee":"36047.00","deposit_amount":"404534.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:29:11.000000Z","deleted_at":null,"item":{"id":20,"owner_id":1,"category_id":6,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u0646\u0648\u0633\u062a\u0627\u0644\u0698\u06cc","description":"\u0645\u062f\u062a\u06cc\u0647 \u06a9\u0647 \u06af\u0648\u0634\u0647 \u0627\u062a\u0627\u0642 \u0645\u0648\u0646\u062f\u0647 \u0648 \u0627\u06af\u0647 \u0644\u0627\u0632\u0645\u0634 \u062f\u0627\u0631\u06cc\u062f \u0628\u0647\u062a\u0648\u0646 \u0642\u0631\u0636 \u0645\u06cc\u062f\u0645","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/a22eda8cc9e2e7629fdeed8a2180183b.jpg"],"created_at":"2026-01-04T13:57:57.000000Z","updated_at":"2026-01-05T13:58:00.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":23,"item_id":22,"title":"\u0627\u0645\u06cc\u0644\u06cc \u0628\u0631\u0627\u0646\u062a","description":"\u062f\u0627\u0633\u062a\u0627\u0646\u06cc \u067e\u0631 \u0627\u0628\u0647\u0627\u0645 \u0648 \u062e\u06cc\u0627\u0644 \u0627\u0646\u06af\u06cc\u0632","daily_fee":"6502.00","deposit_amount":"122042.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":1,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:43:44.000000Z","deleted_at":null,"item":{"id":22,"owner_id":4,"category_id":1,"title":"\u0627\u0645\u06cc\u0644\u06cc \u0628\u0631\u0627\u0646\u062a","description":"\u062f\u0627\u0633\u062a\u0627\u0646\u06cc \u067e\u0631 \u0627\u0628\u0647\u0627\u0645 \u0648 \u062e\u06cc\u0627\u0644 \u0627\u0646\u06af\u06cc\u0632","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/ce68c376ee804404db4d0c82bc242706.jpg"],"created_at":"2026-01-01T13:58:10.000000Z","updated_at":"2026-01-05T13:58:17.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":8,"item_id":7,"title":"\u0627\u0628\u0632\u0627\u0631 \u062c\u0646\u06af\u0644\u06cc","description":"\u0628\u0631\u0627\u06cc \u06cc\u06a9 \u06af\u0631\u062f\u0634 \u0627\u0645\u0646 \u0648 \u0628\u0627\u0635\u0641\u0627 \u062f\u0631 \u062c\u0646\u06af\u0644","daily_fee":"44808.00","deposit_amount":"431398.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"item":{"id":7,"owner_id":3,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u062c\u0646\u06af\u0644\u06cc","description":"\u0628\u0631\u0627\u06cc \u06cc\u06a9 \u06af\u0631\u062f\u0634 \u0627\u0645\u0646 \u0648 \u0628\u0627\u0635\u0641\u0627 \u062f\u0631 \u062c\u0646\u06af\u0644","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/89fb9d307d6332a1c533d2dfa23ce554.jpg"],"created_at":"2026-01-05T13:56:31.000000Z","updated_at":"2026-01-05T13:56:39.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":14,"item_id":13,"title":"\u0641\u06cc\u0644 \u0686\u0648\u0628\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc \u062f\u0633\u062a\u0633\u0627\u0632 \u0648 \u0628\u06cc\u200c\u0646\u0647\u0627\u06cc\u062a \u0632\u06cc\u0628\u0627\u06cc \u0641\u06cc\u0644\u06cc","daily_fee":"13859.00","deposit_amount":"104893.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"item":{"id":13,"owner_id":3,"category_id":5,"title":"\u0641\u06cc\u0644 \u0686\u0648\u0628\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc \u062f\u0633\u062a\u0633\u0627\u0632 \u0648 \u0628\u06cc\u200c\u0646\u0647\u0627\u06cc\u062a \u0632\u06cc\u0628\u0627\u06cc \u0641\u06cc\u0644\u06cc","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/95eb311980d9d95e7ae52f0a737e775b.jpg"],"created_at":"2026-01-05T13:57:16.000000Z","updated_at":"2026-01-05T13:57:20.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":17,"item_id":16,"title":"\u0645\u06a9\u0639\u0628 \u0631\u0648\u0628\u06cc\u06a9","description":"\u0627\u06af\u0631 \u0646\u0648\u062c\u0648\u0627\u0646\u062a\u0627\u0646 \u0628\u0627\u0647\u0648\u0634 \u0647\u0633\u062a \u0627\u06cc\u0646 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"5806.00","deposit_amount":"262822.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"item":{"id":16,"owner_id":2,"category_id":5,"title":"\u0645\u06a9\u0639\u0628 \u0631\u0648\u0628\u06cc\u06a9","description":"\u0627\u06af\u0631 \u0646\u0648\u062c\u0648\u0627\u0646\u062a\u0627\u0646 \u0628\u0627\u0647\u0648\u0634 \u0647\u0633\u062a \u0627\u06cc\u0646 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/78371c77f1a3d7f9ded200c18242ae4e.jpg"],"created_at":"2026-01-05T13:57:38.000000Z","updated_at":"2026-01-05T13:57:41.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":18,"item_id":17,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u06af\u0631\u0648\u0647\u06cc","description":"\u0628\u0627 \u0627\u06a9\u06cc\u067e \u062f\u0648\u0633\u062a\u0627\u0646\u062a\u0627\u0646 \u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u062c\u0627\u062f\u0648\u06cc\u06cc \u0631\u0627 \u062a\u062c\u0631\u0628\u0647 \u06a9\u0646\u06cc\u062f","daily_fee":"36573.00","deposit_amount":"440176.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"item":{"id":17,"owner_id":3,"category_id":6,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u06af\u0631\u0648\u0647\u06cc","description":"\u0628\u0627 \u0627\u06a9\u06cc\u067e \u062f\u0648\u0633\u062a\u0627\u0646\u062a\u0627\u0646 \u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u062c\u0627\u062f\u0648\u06cc\u06cc \u0631\u0627 \u062a\u062c\u0631\u0628\u0647 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/293212be4ddd17d68acbfaac78d56586.jpg"],"created_at":"2026-01-06T14:23:19.000000Z","updated_at":"2026-01-06T14:23:24.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/public/listings/newest
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get newest listings (ordered by created_at desc)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":8,"item_id":7,"title":"\u0627\u0628\u0632\u0627\u0631 \u062c\u0646\u06af\u0644\u06cc","description":"\u0628\u0631\u0627\u06cc \u06cc\u06a9 \u06af\u0631\u062f\u0634 \u0627\u0645\u0646 \u0648 \u0628\u0627\u0635\u0641\u0627 \u062f\u0631 \u062c\u0646\u06af\u0644","daily_fee":"44808.00","deposit_amount":"431398.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"item":{"id":7,"owner_id":3,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u062c\u0646\u06af\u0644\u06cc","description":"\u0628\u0631\u0627\u06cc \u06cc\u06a9 \u06af\u0631\u062f\u0634 \u0627\u0645\u0646 \u0648 \u0628\u0627\u0635\u0641\u0627 \u062f\u0631 \u062c\u0646\u06af\u0644","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/89fb9d307d6332a1c533d2dfa23ce554.jpg"],"created_at":"2026-01-05T13:56:31.000000Z","updated_at":"2026-01-05T13:56:39.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":9,"item_id":8,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","daily_fee":"6714.00","deposit_amount":"123502.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:33:47.000000Z","deleted_at":null,"item":{"id":8,"owner_id":4,"category_id":5,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/0c16e7cbc7d74492d92dc71a97634258.jpg"],"created_at":"2026-01-06T13:56:44.000000Z","updated_at":"2026-01-06T13:56:47.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":11,"item_id":10,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","daily_fee":"12267.00","deposit_amount":"165970.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":10,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T17:14:58.000000Z","deleted_at":null,"item":{"id":10,"owner_id":2,"category_id":5,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/2ad2e0775fe81e8fe6a4ccefc6636ee2.jpg"],"created_at":"2026-01-05T13:56:57.000000Z","updated_at":"2026-01-05T13:57:00.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":12,"item_id":11,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","daily_fee":"29384.00","deposit_amount":"171267.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:38:48.000000Z","deleted_at":null,"item":{"id":11,"owner_id":2,"category_id":6,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/4d7fad73122f9185ce985bff268529c3.jpg"],"created_at":"2026-01-05T13:57:04.000000Z","updated_at":"2026-01-05T13:57:07.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":13,"item_id":12,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","daily_fee":"37482.00","deposit_amount":"720663.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T10:33:30.000000Z","deleted_at":null,"item":{"id":12,"owner_id":4,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/63a85aa0fde2237860b17411c6d4c057.jpg"],"created_at":"2026-01-05T13:57:10.000000Z","updated_at":"2026-01-05T13:57:13.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":14,"item_id":13,"title":"\u0641\u06cc\u0644 \u0686\u0648\u0628\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc \u062f\u0633\u062a\u0633\u0627\u0632 \u0648 \u0628\u06cc\u200c\u0646\u0647\u0627\u06cc\u062a \u0632\u06cc\u0628\u0627\u06cc \u0641\u06cc\u0644\u06cc","daily_fee":"13859.00","deposit_amount":"104893.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"item":{"id":13,"owner_id":3,"category_id":5,"title":"\u0641\u06cc\u0644 \u0686\u0648\u0628\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc \u062f\u0633\u062a\u0633\u0627\u0632 \u0648 \u0628\u06cc\u200c\u0646\u0647\u0627\u06cc\u062a \u0632\u06cc\u0628\u0627\u06cc \u0641\u06cc\u0644\u06cc","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/95eb311980d9d95e7ae52f0a737e775b.jpg"],"created_at":"2026-01-05T13:57:16.000000Z","updated_at":"2026-01-05T13:57:20.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":15,"item_id":14,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","daily_fee":"9647.00","deposit_amount":"149999.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:21:43.000000Z","deleted_at":null,"item":{"id":14,"owner_id":4,"category_id":5,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/546e1a781d354475da98753ca33984ab.jpg"],"created_at":"2026-01-05T13:57:23.000000Z","updated_at":"2026-01-05T13:57:27.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":16,"item_id":15,"title":"\u06a9\u062a\u0627\u0628\u06cc \u062e\u06cc\u0627\u0644\u200c\u0627\u0646\u06af\u06cc\u0632","description":"\u0628\u0631\u0627\u06cc \u062e\u0627\u0646\u0645\u200c\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0632\u06cc\u0627\u062f \u0627\u0648\u0631\u062a\u06cc\u0646\u06a9 \u0645\u06cc\u200c\u06a9\u0646\u0646\u062f.","daily_fee":"7280.00","deposit_amount":"61188.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:31:35.000000Z","deleted_at":null,"item":{"id":15,"owner_id":1,"category_id":1,"title":"\u06a9\u062a\u0627\u0628\u06cc \u062e\u06cc\u0627\u0644\u200c\u0627\u0646\u06af\u06cc\u0632","description":"\u0628\u0631\u0627\u06cc \u062e\u0627\u0646\u0645\u200c\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0632\u06cc\u0627\u062f \u0627\u0648\u0631\u062a\u06cc\u0646\u06a9 \u0645\u06cc\u200c\u06a9\u0646\u0646\u062f.","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/42151b6bb9ae2be8e2e08864a0bfacc1.jpg"],"created_at":"2026-01-05T13:57:31.000000Z","updated_at":"2026-01-05T13:57:34.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":17,"item_id":16,"title":"\u0645\u06a9\u0639\u0628 \u0631\u0648\u0628\u06cc\u06a9","description":"\u0627\u06af\u0631 \u0646\u0648\u062c\u0648\u0627\u0646\u062a\u0627\u0646 \u0628\u0627\u0647\u0648\u0634 \u0647\u0633\u062a \u0627\u06cc\u0646 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"5806.00","deposit_amount":"262822.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"item":{"id":16,"owner_id":2,"category_id":5,"title":"\u0645\u06a9\u0639\u0628 \u0631\u0648\u0628\u06cc\u06a9","description":"\u0627\u06af\u0631 \u0646\u0648\u062c\u0648\u0627\u0646\u062a\u0627\u0646 \u0628\u0627\u0647\u0648\u0634 \u0647\u0633\u062a \u0627\u06cc\u0646 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/78371c77f1a3d7f9ded200c18242ae4e.jpg"],"created_at":"2026-01-05T13:57:38.000000Z","updated_at":"2026-01-05T13:57:41.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":18,"item_id":17,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u06af\u0631\u0648\u0647\u06cc","description":"\u0628\u0627 \u0627\u06a9\u06cc\u067e \u062f\u0648\u0633\u062a\u0627\u0646\u062a\u0627\u0646 \u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u062c\u0627\u062f\u0648\u06cc\u06cc \u0631\u0627 \u062a\u062c\u0631\u0628\u0647 \u06a9\u0646\u06cc\u062f","daily_fee":"36573.00","deposit_amount":"440176.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"item":{"id":17,"owner_id":3,"category_id":6,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u06af\u0631\u0648\u0647\u06cc","description":"\u0628\u0627 \u0627\u06a9\u06cc\u067e \u062f\u0648\u0633\u062a\u0627\u0646\u062a\u0627\u0646 \u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u062c\u0627\u062f\u0648\u06cc\u06cc \u0631\u0627 \u062a\u062c\u0631\u0628\u0647 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/293212be4ddd17d68acbfaac78d56586.jpg"],"created_at":"2026-01-06T14:23:19.000000Z","updated_at":"2026-01-06T14:23:24.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":19,"item_id":18,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","daily_fee":"20369.00","deposit_amount":"497940.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:01:44.000000Z","deleted_at":null,"item":{"id":18,"owner_id":4,"category_id":6,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/881611da63292e272aa6564a237e5e08.jpg"],"created_at":"2026-01-05T13:57:44.000000Z","updated_at":"2026-01-05T13:57:48.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":20,"item_id":19,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","daily_fee":"7466.00","deposit_amount":"199262.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":5,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:42:45.000000Z","deleted_at":null,"item":{"id":19,"owner_id":2,"category_id":1,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/1994376031428450fa5c2ac09eb4149c.jpg"],"created_at":"2026-01-05T13:57:51.000000Z","updated_at":"2026-01-06T13:57:54.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":21,"item_id":20,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u0646\u0648\u0633\u062a\u0627\u0644\u0698\u06cc","description":"\u0645\u062f\u062a\u06cc\u0647 \u06a9\u0647 \u06af\u0648\u0634\u0647 \u0627\u062a\u0627\u0642 \u0645\u0648\u0646\u062f\u0647 \u0648 \u0627\u06af\u0647 \u0644\u0627\u0632\u0645\u0634 \u062f\u0627\u0631\u06cc\u062f \u0628\u0647\u062a\u0648\u0646 \u0642\u0631\u0636 \u0645\u06cc\u062f\u0645","daily_fee":"36047.00","deposit_amount":"404534.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:29:11.000000Z","deleted_at":null,"item":{"id":20,"owner_id":1,"category_id":6,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u0646\u0648\u0633\u062a\u0627\u0644\u0698\u06cc","description":"\u0645\u062f\u062a\u06cc\u0647 \u06a9\u0647 \u06af\u0648\u0634\u0647 \u0627\u062a\u0627\u0642 \u0645\u0648\u0646\u062f\u0647 \u0648 \u0627\u06af\u0647 \u0644\u0627\u0632\u0645\u0634 \u062f\u0627\u0631\u06cc\u062f \u0628\u0647\u062a\u0648\u0646 \u0642\u0631\u0636 \u0645\u06cc\u062f\u0645","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/a22eda8cc9e2e7629fdeed8a2180183b.jpg"],"created_at":"2026-01-04T13:57:57.000000Z","updated_at":"2026-01-05T13:58:00.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":22,"item_id":21,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"4032.00","deposit_amount":"192781.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":6,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:39:24.000000Z","deleted_at":null,"item":{"id":21,"owner_id":3,"category_id":1,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/b5ede21269b3c45015526682602dc1eb.jpg"],"created_at":"2026-01-02T13:58:02.000000Z","updated_at":"2026-01-06T13:58:07.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":23,"item_id":22,"title":"\u0627\u0645\u06cc\u0644\u06cc \u0628\u0631\u0627\u0646\u062a","description":"\u062f\u0627\u0633\u062a\u0627\u0646\u06cc \u067e\u0631 \u0627\u0628\u0647\u0627\u0645 \u0648 \u062e\u06cc\u0627\u0644 \u0627\u0646\u06af\u06cc\u0632","daily_fee":"6502.00","deposit_amount":"122042.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":1,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:43:44.000000Z","deleted_at":null,"item":{"id":22,"owner_id":4,"category_id":1,"title":"\u0627\u0645\u06cc\u0644\u06cc \u0628\u0631\u0627\u0646\u062a","description":"\u062f\u0627\u0633\u062a\u0627\u0646\u06cc \u067e\u0631 \u0627\u0628\u0647\u0627\u0645 \u0648 \u062e\u06cc\u0627\u0644 \u0627\u0646\u06af\u06cc\u0632","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/ce68c376ee804404db4d0c82bc242706.jpg"],"created_at":"2026-01-01T13:58:10.000000Z","updated_at":"2026-01-05T13:58:17.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/public/listings/most-viewed
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get most viewed listings (ordered by view_count desc)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":3,"item_id":3,"title":"\u0627\u062c\u0627\u0631\u0647 \u0644\u067e\u200c\u062a\u0627\u067e Dell","description":"\u0644\u067e\u200c\u062a\u0627\u067e \u0628\u0627 \u067e\u0631\u062f\u0627\u0632\u0646\u062f\u0647 \u0642\u062f\u0631\u062a\u0645\u0646\u062f","daily_fee":"100000.00","deposit_amount":"2000000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-03-05T00:00:00.000000Z","status":"active","view_count":86,"created_at":"2026-01-05T06:50:33.000000Z","updated_at":"2026-01-05T10:37:46.000000Z","deleted_at":null,"item":{"id":3,"owner_id":3,"category_id":4,"title":"\u0644\u067e\u200c\u062a\u0627\u067e Dell","description":"\u0644\u067e\u200c\u062a\u0627\u067e Dell \u0628\u0627 \u067e\u0631\u062f\u0627\u0632\u0646\u062f\u0647 Intel Core i7","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/df5aa535e7670dd8789ca9b1d9135fe0.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":4,"parent_id":null,"title":"\u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":4,"item_id":4,"title":"\u0627\u062c\u0627\u0631\u0647 \u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646","description":"\u062f\u0648\u0686\u0631\u062e\u0647 \u0645\u0646\u0627\u0633\u0628 \u0628\u0631\u0627\u06cc \u06a9\u0648\u0647\u0646\u0648\u0631\u062f\u06cc","daily_fee":"50000.00","deposit_amount":"500000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-05-05T00:00:00.000000Z","status":"active","view_count":58,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T07:17:54.000000Z","deleted_at":null,"item":{"id":4,"owner_id":4,"category_id":6,"title":"\u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646","description":"\u062f\u0648\u0686\u0631\u062e\u0647 \u06a9\u0648\u0647\u0633\u062a\u0627\u0646 \u0628\u0627 \u06a9\u06cc\u0641\u06cc\u062a \u0639\u0627\u0644\u06cc","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/bc2bb19f872f60496b11c3bac04fd520.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":5,"item_id":5,"title":"\u0627\u062c\u0627\u0631\u0647 \u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc","description":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc \u0642\u062f\u0631\u062a\u0645\u0646\u062f","daily_fee":"20000.00","deposit_amount":"300000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-06-05T00:00:00.000000Z","status":"active","view_count":35,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T12:42:40.000000Z","deleted_at":null,"item":{"id":5,"owner_id":1,"category_id":3,"title":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc","description":"\u062c\u0627\u0631\u0648 \u0628\u0631\u0642\u06cc \u0642\u062f\u0631\u062a\u0645\u0646\u062f","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/b899ad0b235bc522afea8ff39c81790f.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":3,"parent_id":null,"title":"\u0644\u0648\u0627\u0632\u0645 \u062e\u0627\u0646\u06af\u06cc","description":"\u0644\u0648\u0627\u0632\u0645 \u062e\u0627\u0646\u06af\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":6,"item_id":6,"title":"\u0627\u062c\u0627\u0631\u0647 \u067e\u0627\u0632\u0644 1000 \u062a\u06a9\u0647","description":"\u067e\u0627\u0632\u0644 \u0632\u06cc\u0628\u0627 \u0648 \u0633\u0631\u06af\u0631\u0645\u200c\u06a9\u0646\u0646\u062f\u0647","daily_fee":"10000.00","deposit_amount":"100000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-07-05T00:00:00.000000Z","status":"active","view_count":27,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T11:57:17.000000Z","deleted_at":null,"item":{"id":6,"owner_id":2,"category_id":5,"title":"\u067e\u0627\u0632\u0644 1000 \u062a\u06a9\u0647","description":"\u067e\u0627\u0632\u0644 \u0632\u06cc\u0628\u0627 \u0628\u0627 \u062a\u0635\u0648\u06cc\u0631 \u0637\u0628\u06cc\u0639\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/6e6afbf4e39d88e8f1d377de945c82fa.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":24,"item_id":23,"title":"\u062f\u0633\u062a\u200c\u0647\u0627\u06cc \u0642\u0648\u06cc","description":"\u0628\u0631\u0627\u06cc \u0627\u0648\u0642\u0627\u062a \u0628\u06cc\u06a9\u0627\u0631\u06cc  \u0634\u0645\u0627","daily_fee":"27996.00","deposit_amount":"283772.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":20,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:30:18.000000Z","deleted_at":null,"item":{"id":23,"owner_id":1,"category_id":6,"title":"\u062f\u0633\u062a\u200c\u0647\u0627\u06cc \u0642\u0648\u06cc","description":"\u0628\u0631\u0627\u06cc \u0627\u0648\u0642\u0627\u062a \u0628\u06cc\u06a9\u0627\u0631\u06cc  \u0634\u0645\u0627","item_condition":"new","images_json":"[\"http:\/\/localhost:3000\/items\/e05812eb7d02bcbf8cafd0cfee380da0.jpg\"]","created_at":"2026-01-06T13:58:20.000000Z","updated_at":"2026-01-06T11:12:16.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":25,"item_id":24,"title":"\u0622\u0686\u0627\u0631","description":"\u0628\u0631\u0627\u06cc \u062a\u0639\u0645\u06cc\u0631\u0627\u062a \u062e\u0627\u0646\u06af\u06cc","daily_fee":"19783.00","deposit_amount":"193278.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":18,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:36:48.000000Z","deleted_at":null,"item":{"id":24,"owner_id":3,"category_id":2,"title":"\u0622\u0686\u0627\u0631","description":"\u0628\u0631\u0627\u06cc \u062a\u0639\u0645\u06cc\u0631\u0627\u062a \u062e\u0627\u0646\u06af\u06cc","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/ee501960fefe13840a013f3c18589c77.jpg"],"created_at":"2026-01-07T13:58:26.000000Z","updated_at":"2026-01-05T13:58:29.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":26,"item_id":25,"title":"\u0627\u0628\u0632\u0627\u0631 \u0646\u062c\u0627\u0631\u06cc","description":"\u06cc\u06a9 \u0635\u0646\u062f\u0644\u06cc \u0686\u0648\u0628\u06cc \u0628\u0633\u0627\u0632\u06cc\u062f","daily_fee":"41964.00","deposit_amount":"636689.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":12,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:14:25.000000Z","deleted_at":null,"item":{"id":25,"owner_id":2,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u0646\u062c\u0627\u0631\u06cc","description":"\u06cc\u06a9 \u0635\u0646\u062f\u0644\u06cc \u0686\u0648\u0628\u06cc \u0628\u0633\u0627\u0632\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/e6cb403e98a7f28b2c59e46f53a3a83d.jpg"],"created_at":"2026-01-06T13:58:33.000000Z","updated_at":"2026-01-04T13:58:36.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":11,"item_id":10,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","daily_fee":"12267.00","deposit_amount":"165970.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":10,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T17:14:58.000000Z","deleted_at":null,"item":{"id":10,"owner_id":2,"category_id":5,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/2ad2e0775fe81e8fe6a4ccefc6636ee2.jpg"],"created_at":"2026-01-05T13:56:57.000000Z","updated_at":"2026-01-05T13:57:00.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":22,"item_id":21,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"4032.00","deposit_amount":"192781.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":6,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:39:24.000000Z","deleted_at":null,"item":{"id":21,"owner_id":3,"category_id":1,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/b5ede21269b3c45015526682602dc1eb.jpg"],"created_at":"2026-01-02T13:58:02.000000Z","updated_at":"2026-01-06T13:58:07.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":20,"item_id":19,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","daily_fee":"7466.00","deposit_amount":"199262.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":5,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:42:45.000000Z","deleted_at":null,"item":{"id":19,"owner_id":2,"category_id":1,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/1994376031428450fa5c2ac09eb4149c.jpg"],"created_at":"2026-01-05T13:57:51.000000Z","updated_at":"2026-01-06T13:57:54.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":12,"item_id":11,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","daily_fee":"29384.00","deposit_amount":"171267.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:38:48.000000Z","deleted_at":null,"item":{"id":11,"owner_id":2,"category_id":6,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/4d7fad73122f9185ce985bff268529c3.jpg"],"created_at":"2026-01-05T13:57:04.000000Z","updated_at":"2026-01-05T13:57:07.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":13,"item_id":12,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","daily_fee":"37482.00","deposit_amount":"720663.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T10:33:30.000000Z","deleted_at":null,"item":{"id":12,"owner_id":4,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/63a85aa0fde2237860b17411c6d4c057.jpg"],"created_at":"2026-01-05T13:57:10.000000Z","updated_at":"2026-01-05T13:57:13.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":19,"item_id":18,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","daily_fee":"20369.00","deposit_amount":"497940.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:01:44.000000Z","deleted_at":null,"item":{"id":18,"owner_id":4,"category_id":6,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/881611da63292e272aa6564a237e5e08.jpg"],"created_at":"2026-01-05T13:57:44.000000Z","updated_at":"2026-01-05T13:57:48.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":9,"item_id":8,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","daily_fee":"6714.00","deposit_amount":"123502.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:33:47.000000Z","deleted_at":null,"item":{"id":8,"owner_id":4,"category_id":5,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/0c16e7cbc7d74492d92dc71a97634258.jpg"],"created_at":"2026-01-06T13:56:44.000000Z","updated_at":"2026-01-06T13:56:47.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":15,"item_id":14,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","daily_fee":"9647.00","deposit_amount":"149999.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:21:43.000000Z","deleted_at":null,"item":{"id":14,"owner_id":4,"category_id":5,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/546e1a781d354475da98753ca33984ab.jpg"],"created_at":"2026-01-05T13:57:23.000000Z","updated_at":"2026-01-05T13:57:27.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/public/listings/most-borrowed
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get most borrowed listings (ordered by loans count)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":9,"item_id":8,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","daily_fee":"6714.00","deposit_amount":"123502.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:33:47.000000Z","deleted_at":null,"loans_count":1,"item":{"id":8,"owner_id":4,"category_id":5,"title":"\u0639\u0631\u0648\u0633\u06a9 \u0628\u0628\u0639\u06cc","description":"\u062f\u0648\u0633\u062a \u0645\u0647\u0631\u0628\u0627\u0646 \u0648 \u0646\u0631\u0645 \u06a9\u0648\u062f\u06a9\u0627\u0646","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/0c16e7cbc7d74492d92dc71a97634258.jpg"],"created_at":"2026-01-06T13:56:44.000000Z","updated_at":"2026-01-06T13:56:47.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":13,"item_id":12,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","daily_fee":"37482.00","deposit_amount":"720663.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T10:33:30.000000Z","deleted_at":null,"loans_count":1,"item":{"id":12,"owner_id":4,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u0645\u062d\u0627\u0633\u0628\u0627\u062a","description":"\u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06cc\u06a9 \u06a9\u0627\u0628\u06cc\u0646\u062a\u200c\u0633\u0627\u0632 \u0628\u0647 \u062f\u0631\u062f\u062a\u0627\u0646 \u0645\u06cc\u200c\u062e\u0648\u0631\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/63a85aa0fde2237860b17411c6d4c057.jpg"],"created_at":"2026-01-05T13:57:10.000000Z","updated_at":"2026-01-05T13:57:13.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":3,"item_id":3,"title":"\u0627\u062c\u0627\u0631\u0647 \u0644\u067e\u200c\u062a\u0627\u067e Dell","description":"\u0644\u067e\u200c\u062a\u0627\u067e \u0628\u0627 \u067e\u0631\u062f\u0627\u0632\u0646\u062f\u0647 \u0642\u062f\u0631\u062a\u0645\u0646\u062f","daily_fee":"100000.00","deposit_amount":"2000000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-03-05T00:00:00.000000Z","status":"active","view_count":86,"created_at":"2026-01-05T06:50:33.000000Z","updated_at":"2026-01-05T10:37:46.000000Z","deleted_at":null,"loans_count":1,"item":{"id":3,"owner_id":3,"category_id":4,"title":"\u0644\u067e\u200c\u062a\u0627\u067e Dell","description":"\u0644\u067e\u200c\u062a\u0627\u067e Dell \u0628\u0627 \u067e\u0631\u062f\u0627\u0632\u0646\u062f\u0647 Intel Core i7","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/df5aa535e7670dd8789ca9b1d9135fe0.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":4,"parent_id":null,"title":"\u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":8,"item_id":7,"title":"\u0627\u0628\u0632\u0627\u0631 \u062c\u0646\u06af\u0644\u06cc","description":"\u0628\u0631\u0627\u06cc \u06cc\u06a9 \u06af\u0631\u062f\u0634 \u0627\u0645\u0646 \u0648 \u0628\u0627\u0635\u0641\u0627 \u062f\u0631 \u062c\u0646\u06af\u0644","daily_fee":"44808.00","deposit_amount":"431398.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"loans_count":0,"item":{"id":7,"owner_id":3,"category_id":2,"title":"\u0627\u0628\u0632\u0627\u0631 \u062c\u0646\u06af\u0644\u06cc","description":"\u0628\u0631\u0627\u06cc \u06cc\u06a9 \u06af\u0631\u062f\u0634 \u0627\u0645\u0646 \u0648 \u0628\u0627\u0635\u0641\u0627 \u062f\u0631 \u062c\u0646\u06af\u0644","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/89fb9d307d6332a1c533d2dfa23ce554.jpg"],"created_at":"2026-01-05T13:56:31.000000Z","updated_at":"2026-01-05T13:56:39.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":11,"item_id":10,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","daily_fee":"12267.00","deposit_amount":"165970.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":10,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T17:14:58.000000Z","deleted_at":null,"loans_count":0,"item":{"id":10,"owner_id":2,"category_id":5,"title":"\u062c\u0648\u0631\u0686\u06cc\u0646 \u06a9\u0648\u062f\u06a9\u0627\u0646","description":"\u06cc\u06a9 \u0642\u0644\u0639\u0647 \u0647\u0632\u0627\u0631 \u0631\u0646\u06af \u0628\u0633\u0627\u0632\u06cc\u062f \u0648 \u0622\u062e\u0631 \u0647\u0641\u062a\u0647 \u062e\u0648\u062f \u0631\u0627 \u0634\u06cc\u0631\u06cc\u0646\u200c\u062a\u0631 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/2ad2e0775fe81e8fe6a4ccefc6636ee2.jpg"],"created_at":"2026-01-05T13:56:57.000000Z","updated_at":"2026-01-05T13:57:00.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":12,"item_id":11,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","daily_fee":"29384.00","deposit_amount":"171267.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:38:48.000000Z","deleted_at":null,"loans_count":0,"item":{"id":11,"owner_id":2,"category_id":6,"title":"\u0628\u062f\u0646\u0633\u0627\u0632\u06cc \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u0628\u0631\u0627\u06cc \u0648\u0631\u06a9 \u0627\u0648\u062a \u062f\u0631 \u06af\u0627\u0631\u0627\u0698 \u062e\u0627\u0646\u0647 \u0634\u0645\u0627","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/4d7fad73122f9185ce985bff268529c3.jpg"],"created_at":"2026-01-05T13:57:04.000000Z","updated_at":"2026-01-05T13:57:07.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":14,"item_id":13,"title":"\u0641\u06cc\u0644 \u0686\u0648\u0628\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc \u062f\u0633\u062a\u0633\u0627\u0632 \u0648 \u0628\u06cc\u200c\u0646\u0647\u0627\u06cc\u062a \u0632\u06cc\u0628\u0627\u06cc \u0641\u06cc\u0644\u06cc","daily_fee":"13859.00","deposit_amount":"104893.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"loans_count":0,"item":{"id":13,"owner_id":3,"category_id":5,"title":"\u0641\u06cc\u0644 \u0686\u0648\u0628\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc \u062f\u0633\u062a\u0633\u0627\u0632 \u0648 \u0628\u06cc\u200c\u0646\u0647\u0627\u06cc\u062a \u0632\u06cc\u0628\u0627\u06cc \u0641\u06cc\u0644\u06cc","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/95eb311980d9d95e7ae52f0a737e775b.jpg"],"created_at":"2026-01-05T13:57:16.000000Z","updated_at":"2026-01-05T13:57:20.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":15,"item_id":14,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","daily_fee":"9647.00","deposit_amount":"149999.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:21:43.000000Z","deleted_at":null,"loans_count":0,"item":{"id":14,"owner_id":4,"category_id":5,"title":"\u0645\u0648\u062c\u0648\u062f\u0627\u062a \u0631\u06cc\u0632 \u0648 \u0628\u0627\u0646\u0645\u06a9","description":"\u0628\u0686\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u0628\u0647 \u062f\u0646\u06cc\u0627\u06cc\u06cc \u0627\u0632 \u0639\u062c\u0627\u06cc\u062a \u0631\u0646\u06af\u0627\u0631\u0646\u06af \u0628\u06cc\u0627\u0648\u0631\u06cc\u062f \u0648 \u0627\u06cc\u0646\u0637\u0648\u0631 \u062f\u0627\u0633\u062a\u0627\u0646 \u0628\u06af\u0648\u06cc\u06cc\u062f","item_condition":"like_new","images_json":["http:\/\/localhost:3000\/items\/546e1a781d354475da98753ca33984ab.jpg"],"created_at":"2026-01-05T13:57:23.000000Z","updated_at":"2026-01-05T13:57:27.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":16,"item_id":15,"title":"\u06a9\u062a\u0627\u0628\u06cc \u062e\u06cc\u0627\u0644\u200c\u0627\u0646\u06af\u06cc\u0632","description":"\u0628\u0631\u0627\u06cc \u062e\u0627\u0646\u0645\u200c\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0632\u06cc\u0627\u062f \u0627\u0648\u0631\u062a\u06cc\u0646\u06a9 \u0645\u06cc\u200c\u06a9\u0646\u0646\u062f.","daily_fee":"7280.00","deposit_amount":"61188.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T11:31:35.000000Z","deleted_at":null,"loans_count":0,"item":{"id":15,"owner_id":1,"category_id":1,"title":"\u06a9\u062a\u0627\u0628\u06cc \u062e\u06cc\u0627\u0644\u200c\u0627\u0646\u06af\u06cc\u0632","description":"\u0628\u0631\u0627\u06cc \u062e\u0627\u0646\u0645\u200c\u0647\u0627\u06cc\u06cc \u06a9\u0647 \u0632\u06cc\u0627\u062f \u0627\u0648\u0631\u062a\u06cc\u0646\u06a9 \u0645\u06cc\u200c\u06a9\u0646\u0646\u062f.","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/42151b6bb9ae2be8e2e08864a0bfacc1.jpg"],"created_at":"2026-01-05T13:57:31.000000Z","updated_at":"2026-01-05T13:57:34.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":17,"item_id":16,"title":"\u0645\u06a9\u0639\u0628 \u0631\u0648\u0628\u06cc\u06a9","description":"\u0627\u06af\u0631 \u0646\u0648\u062c\u0648\u0627\u0646\u062a\u0627\u0646 \u0628\u0627\u0647\u0648\u0634 \u0647\u0633\u062a \u0627\u06cc\u0646 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"5806.00","deposit_amount":"262822.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"loans_count":0,"item":{"id":16,"owner_id":2,"category_id":5,"title":"\u0645\u06a9\u0639\u0628 \u0631\u0648\u0628\u06cc\u06a9","description":"\u0627\u06af\u0631 \u0646\u0648\u062c\u0648\u0627\u0646\u062a\u0627\u0646 \u0628\u0627\u0647\u0648\u0634 \u0647\u0633\u062a \u0627\u06cc\u0646 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/78371c77f1a3d7f9ded200c18242ae4e.jpg"],"created_at":"2026-01-05T13:57:38.000000Z","updated_at":"2026-01-05T13:57:41.000000Z","deleted_at":null,"category":{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":18,"item_id":17,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u06af\u0631\u0648\u0647\u06cc","description":"\u0628\u0627 \u0627\u06a9\u06cc\u067e \u062f\u0648\u0633\u062a\u0627\u0646\u062a\u0627\u0646 \u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u062c\u0627\u062f\u0648\u06cc\u06cc \u0631\u0627 \u062a\u062c\u0631\u0628\u0647 \u06a9\u0646\u06cc\u062f","daily_fee":"36573.00","deposit_amount":"440176.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":0,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T14:02:32.000000Z","deleted_at":null,"loans_count":0,"item":{"id":17,"owner_id":3,"category_id":6,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u06af\u0631\u0648\u0647\u06cc","description":"\u0628\u0627 \u0627\u06a9\u06cc\u067e \u062f\u0648\u0633\u062a\u0627\u0646\u062a\u0627\u0646 \u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u062c\u0627\u062f\u0648\u06cc\u06cc \u0631\u0627 \u062a\u062c\u0631\u0628\u0647 \u06a9\u0646\u06cc\u062f","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/293212be4ddd17d68acbfaac78d56586.jpg"],"created_at":"2026-01-06T14:23:19.000000Z","updated_at":"2026-01-06T14:23:24.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}},{"id":19,"item_id":18,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","daily_fee":"20369.00","deposit_amount":"497940.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":4,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:01:44.000000Z","deleted_at":null,"loans_count":0,"item":{"id":18,"owner_id":4,"category_id":6,"title":"\u0627\u06cc\u0631\u0648\u0628\u06cc\u06a9 \u062f\u0631 \u062e\u0627\u0646\u0647","description":"\u06a9\u0644\u0627\u0633 \u0647\u0627\u06cc \u0622\u0646\u0644\u0627\u06cc\u0646 \u0648\u0631\u0632\u0634 \u0631\u0627\u062a \u062b\u0628\u062a \u0646\u0627\u0645 \u06a9\u0631\u062f\u0647 \u0648 \u0647\u0645\u06cc\u0634\u0647 \u062f\u0631 \u062e\u0627\u0646\u0647 \u0641\u06cc\u062a \u0628\u0645\u0627\u0646\u06cc\u062f","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/881611da63292e272aa6564a237e5e08.jpg"],"created_at":"2026-01-05T13:57:44.000000Z","updated_at":"2026-01-05T13:57:48.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":4,"full_name":"\u0632\u0647\u0631\u0627 \u0646\u0648\u0631\u06cc","username":"zahra_noori","email":"zahra@example.com","phone":"09123456792","profile_image":null,"trust_score":4.7,"role":0,"address":"\u0645\u0634\u0647\u062f\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0627\u0645\u0627\u0645 \u0631\u0636\u0627","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null}}},{"id":20,"item_id":19,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","daily_fee":"7466.00","deposit_amount":"199262.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":5,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:42:45.000000Z","deleted_at":null,"loans_count":0,"item":{"id":19,"owner_id":2,"category_id":1,"title":"\u0647\u0645\u0644\u062a","description":"\u0646\u0645\u0627\u06cc\u0634\u0646\u0627\u0645\u0647\u200c\u0627\u06cc \u0627\u0632 \u0627\u0639\u0645\u0627\u0642 \u062a\u0627\u0631\u06cc\u062e \u0648 \u0647\u0646\u0631","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/1994376031428450fa5c2ac09eb4149c.jpg"],"created_at":"2026-01-05T13:57:51.000000Z","updated_at":"2026-01-06T13:57:54.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}},{"id":21,"item_id":20,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u0646\u0648\u0633\u062a\u0627\u0644\u0698\u06cc","description":"\u0645\u062f\u062a\u06cc\u0647 \u06a9\u0647 \u06af\u0648\u0634\u0647 \u0627\u062a\u0627\u0642 \u0645\u0648\u0646\u062f\u0647 \u0648 \u0627\u06af\u0647 \u0644\u0627\u0632\u0645\u0634 \u062f\u0627\u0631\u06cc\u062f \u0628\u0647\u062a\u0648\u0646 \u0642\u0631\u0636 \u0645\u06cc\u062f\u0645","daily_fee":"36047.00","deposit_amount":"404534.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":2,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-05T11:29:11.000000Z","deleted_at":null,"loans_count":0,"item":{"id":20,"owner_id":1,"category_id":6,"title":"\u0627\u0633\u06a9\u06cc\u062a\u200c\u0628\u0648\u0631\u062f \u0646\u0648\u0633\u062a\u0627\u0644\u0698\u06cc","description":"\u0645\u062f\u062a\u06cc\u0647 \u06a9\u0647 \u06af\u0648\u0634\u0647 \u0627\u062a\u0627\u0642 \u0645\u0648\u0646\u062f\u0647 \u0648 \u0627\u06af\u0647 \u0644\u0627\u0632\u0645\u0634 \u062f\u0627\u0631\u06cc\u062f \u0628\u0647\u062a\u0648\u0646 \u0642\u0631\u0636 \u0645\u06cc\u062f\u0645","item_condition":"old","images_json":["http:\/\/localhost:3000\/items\/a22eda8cc9e2e7629fdeed8a2180183b.jpg"],"created_at":"2026-01-04T13:57:57.000000Z","updated_at":"2026-01-05T13:58:00.000000Z","deleted_at":null,"category":{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":1,"full_name":"\u0639\u0644\u06cc \u0627\u062d\u0645\u062f\u06cc \u0631\u0627\u062f","username":"ali_ahmadi","email":"ali@example.com","phone":"09123456789","profile_image":"[\"http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg\"]","trust_score":4.5,"role":0,"address":"\u062a\u0647\u0631\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0648\u0644\u06cc\u0639\u0635\u0631","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:12:13.000000Z","deleted_at":null}}},{"id":22,"item_id":21,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","daily_fee":"4032.00","deposit_amount":"192781.00","available_from":"2026-01-06T00:00:00.000000Z","available_until":"2026-12-31T00:00:00.000000Z","status":"active","view_count":6,"created_at":"2026-01-05T14:02:32.000000Z","updated_at":"2026-01-06T12:39:24.000000Z","deleted_at":null,"loans_count":0,"item":{"id":21,"owner_id":3,"category_id":1,"title":"\u0633\u06cc\u0645\u0648\u0646 \u062f\u0648\u0628\u0648\u0648\u0627\u0631","description":"\u0627\u06af\u0631 \u0628\u0647 \u0627\u062f\u0628\u06cc\u0627\u062a \u0633\u06cc\u0627\u0633\u06cc \u0639\u0644\u0627\u0642\u0647 \u0645\u0646\u062f\u06cc\u062f \u0627\u06cc\u0646 \u06a9\u062a\u0627\u0628 \u0645\u0646\u0627\u0633\u0628 \u0634\u0645\u0627\u0633\u062a","item_condition":"new","images_json":["http:\/\/localhost:3000\/items\/b5ede21269b3c45015526682602dc1eb.jpg"],"created_at":"2026-01-02T13:58:02.000000Z","updated_at":"2026-01-06T13:58:07.000000Z","deleted_at":null,"category":{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z"},"owner":{"id":3,"full_name":"\u0645\u062d\u0645\u062f \u06a9\u0631\u06cc\u0645\u06cc","username":"mohammad_karimi","email":"mohammad@example.com","phone":"09123456791","profile_image":null,"trust_score":4.2,"role":0,"address":"\u0634\u06cc\u0631\u0627\u0632\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0632\u0646\u062f","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:19:24.000000Z","deleted_at":null}}}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/public/listings/{id}'
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a specific listing for public/guest users.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the listing.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"id":2,"item_id":2,"title":"\u0627\u062c\u0627\u0631\u0647 \u062f\u0631\u06cc\u0644 \u0628\u0631\u0642\u06cc","description":"\u062f\u0631\u06cc\u0644 \u0628\u0631\u0642\u06cc \u0628\u0627 \u06a9\u06cc\u0641\u06cc\u062a","daily_fee":"30000.00","deposit_amount":"200000.00","available_from":"2026-01-05T00:00:00.000000Z","available_until":"2026-07-05T00:00:00.000000Z","status":"paused","view_count":53,"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T11:00:50.000000Z","deleted_at":null,"item":{"id":2,"owner_id":2,"category_id":2,"title":"\u062f\u0631\u06cc\u0644 \u0628\u0631\u0642\u06cc","description":"\u062f\u0631\u06cc\u0644 \u0628\u0631\u0642\u06cc \u0628\u0627 \u06a9\u06cc\u0641\u06cc\u062a \u0628\u0627\u0644\u0627","item_condition":"used","images_json":["http:\/\/localhost:3000\/items\/da54db5b62ebf9c1a9b1a1b3bb3a605e.jpg"],"created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","deleted_at":null,"category":{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z"},"owner":{"id":2,"full_name":"\u0645\u0631\u06cc\u0645 \u0631\u0636\u0627\u06cc\u06cc","username":"maryam_rezaei","email":"maryam@example.com","phone":"09123456790","profile_image":null,"trust_score":4.8,"role":0,"address":"\u0627\u0635\u0641\u0647\u0627\u0646\u060c \u062e\u06cc\u0627\u0628\u0627\u0646 \u0686\u0647\u0627\u0631\u0628\u0627\u063a","status":"active","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T16:28:11.000000Z","deleted_at":null}}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/public/categories
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display all categories (with children for tree structure).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '[{"id":1,"parent_id":null,"title":"\u06a9\u062a\u0627\u0628","description":"\u06a9\u062a\u0627\u0628\u200c\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","children":[{"id":7,"parent_id":1,"title":"\u0631\u0645\u0627\u0646","description":"\u0631\u0645\u0627\u0646 \u0641\u0627\u0631\u0633\u06cc \u0648 \u0627\u0646\u06af\u0644\u06cc\u0633\u06cc","created_at":null,"updated_at":null},{"id":8,"parent_id":1,"title":"\u06a9\u062a\u0627\u0628 \u062f\u0627\u0646\u0634\u06af\u0627\u0647\u06cc","description":"\u06a9\u062a\u0628 \u0645\u0631\u062c\u0639 \u062f\u0627\u0646\u0634\u06af\u0627\u0647\u06cc","created_at":"2026-01-05T09:33:20.000000Z","updated_at":"2026-01-05T09:33:44.000000Z"}]},{"id":2,"parent_id":null,"title":"\u0627\u0628\u0632\u0627\u0631","description":"\u0627\u0628\u0632\u0627\u0631\u0647\u0627\u06cc \u0645\u062e\u062a\u0644\u0641","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-06T08:52:05.000000Z","children":[]},{"id":3,"parent_id":null,"title":"\u0644\u0648\u0627\u0632\u0645 \u062e\u0627\u0646\u06af\u06cc","description":"\u0644\u0648\u0627\u0632\u0645 \u062e\u0627\u0646\u06af\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","children":[]},{"id":4,"parent_id":null,"title":"\u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0627\u0644\u06a9\u062a\u0631\u0648\u0646\u06cc\u06a9\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","children":[]},{"id":5,"parent_id":null,"title":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc","description":"\u0627\u0633\u0628\u0627\u0628 \u0628\u0627\u0632\u06cc\u200c\u0647\u0627","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","children":[]},{"id":6,"parent_id":null,"title":"\u0648\u0631\u0632\u0634\u06cc","description":"\u0648\u0633\u0627\u06cc\u0644 \u0648\u0631\u0632\u0634\u06cc","created_at":"2026-01-05T06:45:33.000000Z","updated_at":"2026-01-05T06:45:33.000000Z","children":[]}]'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/forgot-password
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"message":"\u062f\u0631 \u0635\u0648\u0631\u062a \u0648\u062c\u0648\u062f \u062d\u0633\u0627\u0628\u060c \u06a9\u062f \u0628\u0627\u0632\u06cc\u0627\u0628\u06cc \u0627\u0631\u0633\u0627\u0644 \u0634\u062f"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/verify-reset-code
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      code:
+        custom: []
+        name: code
+        description: 'Must be 6 digits.'
+        required: true
+        example: '569775'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      code: '569775'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 400
+        content: '{"message":"\u06a9\u062f \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u06cc\u0627 \u0645\u0646\u0642\u0636\u06cc \u0634\u062f\u0647"}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/reset-password
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      code:
+        custom: []
+        name: code
+        description: 'Must be 6 digits.'
+        required: true
+        example: '569775'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 6 characters.'
+        required: true
+        example: ']|{+-0pBNvYg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      code: '569775'
+      password: ']|{+-0pBNvYg'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 400
+        content: '{"message":"\u06a9\u062f \u0646\u0627\u0645\u0639\u062a\u0628\u0631 \u06cc\u0627 \u0645\u0646\u0642\u0636\u06cc \u0634\u062f\u0647"}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
@@ -386,10 +904,22 @@ endpoints:
         exampleWasSpecified: false
         nullable: false
         deprecated: false
+      profile_image:
+        custom: []
+        name: profile_image
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
     cleanBodyParameters:
       full_name: b
       phone: 'n'
       address: architecto
+      profile_image: architecto
     fileParameters: []
     responses:
       -
@@ -509,7 +1039,7 @@ endpoints:
         name: item_condition
         description: ''
         required: true
-        example: old
+        example: used
         type: string
         enumValues:
           - new
@@ -534,7 +1064,7 @@ endpoints:
       category_id: architecto
       title: 'n'
       description: 'Eius et animi quos velit et.'
-      item_condition: old
+      item_condition: used
       images_json: architecto
     fileParameters: []
     responses:
@@ -777,7 +1307,7 @@ endpoints:
       subgroup: ''
       subgroupDescription: ''
       title: "Display listings of the authenticated user's items."
-      description: ''
+      description: 'For admin users, return all listings.'
       authenticated: false
       deprecated: false
     headers:
@@ -889,7 +1419,7 @@ endpoints:
         name: available_from
         description: 'Must be a valid date.'
         required: true
-        example: '2025-12-29T19:51:28'
+        example: '2026-01-06T17:43:47'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -900,7 +1430,7 @@ endpoints:
         name: available_until
         description: 'Must be a valid date. Must be a date after or equal to <code>available_from</code>.'
         required: true
-        example: '2052-01-22'
+        example: '2052-01-30'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -911,7 +1441,7 @@ endpoints:
         name: status
         description: ''
         required: false
-        example: expired
+        example: active
         type: string
         enumValues:
           - active
@@ -926,9 +1456,9 @@ endpoints:
       description: 'Eius et animi quos velit et.'
       daily_fee: 60
       deposit_amount: 42
-      available_from: '2025-12-29T19:51:28'
-      available_until: '2052-01-22'
-      status: expired
+      available_from: '2026-01-06T17:43:47'
+      available_until: '2052-01-30'
+      status: active
     fileParameters: []
     responses:
       -
@@ -970,14 +1500,14 @@ endpoints:
         name: id
         description: 'The ID of the listing.'
         required: true
-        example: 1
+        example: 2
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 1
+      id: 2
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1024,14 +1554,14 @@ endpoints:
         name: id
         description: 'The ID of the listing.'
         required: true
-        example: 1
+        example: 2
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 1
+      id: 2
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1084,7 +1614,7 @@ endpoints:
         name: available_from
         description: 'Must be a valid date.'
         required: false
-        example: '2025-12-29T19:51:28'
+        example: '2026-01-06T17:43:47'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1095,7 +1625,7 @@ endpoints:
         name: available_until
         description: 'Must be a valid date. Must be a date after or equal to <code>available_from</code>.'
         required: false
-        example: '2052-01-22'
+        example: '2052-01-30'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1106,7 +1636,7 @@ endpoints:
         name: status
         description: ''
         required: false
-        example: active
+        example: expired
         type: string
         enumValues:
           - active
@@ -1120,9 +1650,9 @@ endpoints:
       description: 'Eius et animi quos velit et.'
       daily_fee: 60
       deposit_amount: 42
-      available_from: '2025-12-29T19:51:28'
-      available_until: '2052-01-22'
-      status: active
+      available_from: '2026-01-06T17:43:47'
+      available_until: '2052-01-30'
+      status: expired
     fileParameters: []
     responses:
       -
@@ -1164,14 +1694,14 @@ endpoints:
         name: id
         description: 'The ID of the listing.'
         required: true
-        example: 1
+        example: 2
         type: integer
         enumValues: []
         exampleWasSpecified: false
         nullable: false
         deprecated: false
     cleanUrlParameters:
-      id: 1
+      id: 2
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1204,9 +1734,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: |-
-        Display all loans related to the authenticated user
-        (either as borrower or as item owner/lender).
+      title: 'Loans related to authenticated user'
       description: ''
       authenticated: false
       deprecated: false
@@ -1247,7 +1775,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Approve a loan request (only the item owner can do this).'
+      title: 'Approve loan'
       description: ''
       authenticated: false
       deprecated: false
@@ -1300,7 +1828,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Reject a loan request (only the item owner can do this).'
+      title: 'Reject loan'
       description: ''
       authenticated: false
       deprecated: false
@@ -1353,7 +1881,7 @@ endpoints:
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'Create a new loan request (user acts as borrower).'
+      title: 'Create loan request'
       description: ''
       authenticated: false
       deprecated: false
@@ -1379,9 +1907,9 @@ endpoints:
       start_date:
         custom: []
         name: start_date
-        description: 'Must be a valid date.'
+        description: 'Must be a valid date. Must be a date after or equal to <code>today</code>.'
         required: true
-        example: '2025-12-29T19:51:28'
+        example: '2052-01-30'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1390,9 +1918,9 @@ endpoints:
       end_date:
         custom: []
         name: end_date
-        description: 'Must be a valid date. Must be a date after or equal to <code>start_date</code>.'
+        description: 'Must be a valid date. Must be a date after <code>start_date</code>.'
         required: true
-        example: '2052-01-22'
+        example: '2052-01-30'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -1400,8 +1928,61 @@ endpoints:
         deprecated: false
     cleanBodyParameters:
       listing_id: architecto
-      start_date: '2025-12-29T19:51:28'
-      end_date: '2052-01-22'
+      start_date: '2052-01-30'
+      end_date: '2052-01-30'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/loans/{id}'
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the loan.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses:
       -
@@ -1561,6 +2142,518 @@ endpoints:
     cleanBodyParameters:
       conversation_id: architecto
       message_text: architecto
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/admin-conversation
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get or create conversation with admin (for support chat)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/admin/users
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/admin/users/{user_id}'
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      user_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/admin/categories
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display all categories (with children for tree structure).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/admin/categories
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a new category (Admin only)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must not be greater than 150 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'The <code>id</code> of an existing record in the categories table.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: b
+      description: 'Eius et animi quos velit et.'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/admin/categories/{id}'
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a single category with its items.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the category.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/admin/categories/{id}'
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update a category (Admin only)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the category.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        custom: []
+        name: title
+        description: 'Must not be greater than 150 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      description:
+        custom: []
+        name: description
+        description: ''
+        required: false
+        example: 'Eius et animi quos velit et.'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      parent_id:
+        custom: []
+        name: parent_id
+        description: 'The <code>id</code> of an existing record in the categories table.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      title: b
+      description: 'Eius et animi quos velit et.'
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/admin/categories/{id}'
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete a category (Admin only)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the category.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: 'http://localhost:3000'
+          access-control-allow-credentials: 'true'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PATCH
+    uri: 'api/admin/users/{user_id}/trust-score'
+    metadata:
+      custom: []
+      groupName: General
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Accept: application/json
+      Content-Type: application/json
+    urlParameters:
+      user_id:
+        custom: []
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      user_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      trust_score:
+        custom: []
+        name: trust_score
+        description: 'Must be at least 0. Must not be greater than 10.'
+        required: true
+        example: 6
+        type: number
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      trust_score: 6
     fileParameters: []
     responses:
       -

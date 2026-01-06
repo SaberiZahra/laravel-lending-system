@@ -8,9 +8,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      
-      <body className={vazirmatn.className}>{children}</body>
-    </html>
+      <html lang="en">
+
+      <body
+          className={vazirmatn.className}
+          suppressHydrationWarning={true}
+      >
+      {children}
+      </body>
+      </html>
   );
 }

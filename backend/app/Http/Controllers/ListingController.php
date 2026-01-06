@@ -16,13 +16,13 @@ class ListingController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        
+
         // If user is admin, return all listings
         if ($user->role === 1) {
             $listings = Listing::with(['item.category', 'item.owner'])->get();
             return response()->json($listings);
         }
-        
+
         // Otherwise, return only user's listings
         $listings = $user->items()->with('listings')->get()->pluck('listings')->flatten();
         return response()->json($listings);
@@ -35,12 +35,12 @@ class ListingController extends Controller
     {
         $query = Listing::with(['item.category', 'item.owner'])
             ->where('status', 'active');
-        
+
         // Check if view_count column exists before ordering by it
         if (Schema::hasColumn('listings', 'view_count')) {
             $query->orderBy('view_count', 'desc');
         }
-        
+
         $listings = $query->latest()->get();
 
         return response()->json($listings);
@@ -67,12 +67,12 @@ class ListingController extends Controller
     {
         $query = Listing::with(['item.category', 'item.owner'])
             ->where('status', 'active');
-        
+
         // Check if view_count column exists before ordering by it
         if (Schema::hasColumn('listings', 'view_count')) {
             $query->orderBy('view_count', 'desc');
         }
-        
+
         $listings = $query->latest('created_at')->limit(15)->get();
 
         return response()->json($listings);
@@ -91,6 +91,8 @@ class ListingController extends Controller
             ->limit(15)
             ->get();
 
+
+
         return response()->json($listings);
     }
 
@@ -108,6 +110,7 @@ class ListingController extends Controller
 
         return response()->json($listing);
     }
+
 
     /**
      * Store a new listing for an item owned by the user.
@@ -140,6 +143,7 @@ class ListingController extends Controller
             'available_until' => $validated['available_until'],
             'status'          => $validated['status'] ?? 'active',
         ]);
+
 
         return response()->json($listing->load('item'), 201);
     }

@@ -8,7 +8,6 @@ export default function AboutPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-    
       <div dir="rtl" className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 mb-8 text-white text-center">
           <h1 className="text-4xl font-bold mb-2">درباره ما</h1>

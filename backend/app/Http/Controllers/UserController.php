@@ -28,6 +28,7 @@ class UserController extends Controller
             'email' => 'sometimes|email|unique:users,email,' . $user->id,
             'phone' => 'sometimes|string|max:30',
             'address' => 'sometimes|string',
+            'profile_image' => 'sometimes|string',
         ]);
 
         $user->update($data);
@@ -49,5 +50,26 @@ class UserController extends Controller
         $user->load(['items', 'loans']);
 
         return response()->json($user);
+    }
+
+    public function updateTrustScore(Request $request, User $user)
+    {
+        if (auth()->user()->role !== 1) {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 403);
+        }
+
+        $validated = $request->validate([
+            'trust_score' => 'required|numeric|min:0|max:10',
+        ]);
+
+        $user->trust_score = $validated['trust_score'];
+        $user->save();
+
+        return response()->json([
+            'message' => 'Trust score updated successfully',
+            'user' => $user
+        ]);
     }
 }

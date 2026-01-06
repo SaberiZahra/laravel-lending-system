@@ -22,10 +22,15 @@ type User = {
 
 export default function AdminUsersPage() {
   const router = useRouter();
+
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [user, setUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<any>(null);
+
+  // نگه‌داری مقدار امتیاز در حال ویرایش
+  const [editingScores, setEditingScores] = useState<Record<number, number>>({});
+  const [savingUserId, setSavingUserId] = useState<number | null>(null);
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -40,14 +45,15 @@ export default function AdminUsersPage() {
           adminAPI.getUsers(),
           authAPI.me().catch(() => null),
         ]);
+
         setUsers(usersData?.data || usersData || []);
-        setUser(userData);
-        
+        setCurrentUser(userData);
+
         if (userData?.role !== 1) {
           router.push("/dashboard");
         }
       } catch (err: any) {
-        setError(err.response?.data?.message || "خطا در دریافت کاربران");
+        setError(err.response?.data?.message || "خطا در دریافت لیست کاربران");
       } finally {
         setLoading(false);
       }
@@ -56,95 +62,145 @@ export default function AdminUsersPage() {
     fetchData();
   }, [router]);
 
+  const handleScoreChange = (userId: number, value: string) => {
+    let num = Number(value);
+    if (isNaN(num)) num = 0;
+    if (num < 0) num = 0;
+    if (num > 10) num = 10;
+
+    setEditingScores((prev) => ({
+      ...prev,
+      [userId]: num,
+    }));
+  };
+
+  const saveTrustScore = async (userId: number) => {
+    const score = editingScores[userId];
+    if (score === undefined) return;
+
+    try {
+      setSavingUserId(userId);
+      await adminAPI.updateUserTrustScore(userId, score);
+
+      setUsers((prev) =>
+          prev.map((u) =>
+              u.id === userId ? { ...u, trust_score: score } : u
+          )
+      );
+    } catch (err: any) {
+      alert(err.response?.data?.message || "خطا در ذخیره امتیاز");
+    } finally {
+      setSavingUserId(null);
+    }
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">در حال بارگذاری...</p>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-indigo-600 mx-auto"></div>
+            <p className="mt-6 text-lg text-gray-700">در حال بارگذاری کاربران...</p>
+          </div>
         </div>
-      </div>
     );
   }
 
-  if (user?.role !== 1) {
-    return null;
-  }
+  if (currentUser?.role !== 1) return null;
 
   return (
-    <div className="space-y-8">
-      <div className="flex justify-between items-center bg-blue-100 p-6 rounded-2xl shadow-md">
-        <h1 className="text-2xl font-bold text-blue-800">مدیریت کاربران</h1>
-        <Link
-          href="/dashboard"
-          className="px-4 py-2 rounded-xl bg-gray-600 text-white hover:bg-gray-500 transition"
-        >
-          بازگشت
-        </Link>
-      </div>
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto py-12 px-4">
 
-      {error && (
-        <div className="bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl">
-          {error}
-        </div>
-      )}
+          {/* هدر */}
+          <div dir="rtl" className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-3xl p-10 mb-12 text-white shadow-2xl">
+            <div className="flex justify-between items-center">
+              <div>
+                <h1 className="text-4xl font-bold mb-2">مدیریت کاربران</h1>
+                <p className="text-blue-100">ویرایش امتیاز اعتماد کاربران</p>
+              </div>
+              <Link
+                  href="/dashboard"
+                  className="px-6 py-3 bg-white/20 rounded-xl hover:bg-white/30 transition"
+              >
+                ← بازگشت
+              </Link>
+            </div>
+          </div>
 
-      <div className="bg-white rounded-2xl shadow overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">نام</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">نام کاربری</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">ایمیل</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">نقش</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">وضعیت</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">آگهی‌ها</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">درخواست‌ها</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">امتیاز</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {users.map((u) => (
-                <tr key={u.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {u.full_name}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    @{u.username}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {u.email}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      u.role === 1 ? "bg-yellow-100 text-yellow-800" : "bg-blue-100 text-blue-800"
-                    }`}>
-                      {u.role === 1 ? "مدیر" : "کاربر"}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      u.status === "active" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
-                    }`}>
-                      {u.status === "active" ? "فعال" : "غیرفعال"}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {u.items_count || 0}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {u.loans_count || 0}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {u.trust_score?.toFixed(1) || "0.0"}
-                  </td>
+          {error && (
+              <div className="bg-red-100 text-red-700 px-6 py-4 rounded-xl mb-6">
+                {error}
+              </div>
+          )}
+
+          {/* جدول */}
+          <div dir="rtl" className="bg-white rounded-3xl shadow-xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-6 py-4 text-right">نام</th>
+                  <th className="px-6 py-4 text-right">نام کاربری</th>
+                  <th className="px-6 py-4 text-right">ایمیل</th>
+                  <th className="px-6 py-4 text-center">نقش</th>
+                  <th className="px-6 py-4 text-center">وضعیت</th>
+                  <th className="px-6 py-4 text-center">امتیاز اعتماد</th>
+                  <th className="px-6 py-4 text-center">عملیات</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+                </thead>
+                <tbody className="divide-y">
+                {users.map((u) => {
+                  const value =
+                      editingScores[u.id] ?? u.trust_score ?? 0;
+
+                  return (
+                      <tr key={u.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4">{u.full_name || "-"}</td>
+                        <td className="px-6 py-4">@{u.username}</td>
+                        <td className="px-6 py-4">{u.email}</td>
+
+                        <td className="px-6 py-4 text-center">
+                          {u.role === 1 ? "👑 مدیر" : "کاربر"}
+                        </td>
+
+                        <td className="px-6 py-4 text-center">
+                          {u.status === "active" ? "✅ فعال" : "🔴 غیرفعال"}
+                        </td>
+
+                        {/* ویرایش امتیاز */}
+                        <td className="px-6 py-4 text-center">
+                          <input
+                              type="number"
+                              min={0}
+                              max={10}
+                              step={0.1}
+                              value={value}
+                              onChange={(e) =>
+                                  handleScoreChange(u.id, e.target.value)
+                              }
+                              className="w-20 text-center border rounded-lg px-2 py-1"
+                          />
+                          <span className="ml-1 text-sm">/ 10</span>
+                        </td>
+
+                        <td className="px-6 py-4 text-center">
+                          <button
+                              onClick={() => saveTrustScore(u.id)}
+                              disabled={savingUserId === u.id}
+                              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                          >
+                            {savingUserId === u.id ? "در حال ذخیره..." : "ذخیره"}
+                          </button>
+                        </td>
+                      </tr>
+                  );
+                })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
   );
 }

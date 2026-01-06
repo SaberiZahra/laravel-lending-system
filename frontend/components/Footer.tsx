@@ -11,8 +11,13 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">ا</span>
+              <div
+                  className="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden shadow-md">
+                <img
+                    src="/slider/logo.png"
+                    alt="لوگو"
+                    className="w-full h-full object-contain"
+                />
               </div>
               <span className="text-xl font-bold text-white">اجاره چی</span>
             </div>

@@ -39,6 +39,12 @@ Route::get('/public/listings/most-borrowed', [ListingController::class, 'mostBor
 Route::get('/public/listings/{id}', [ListingController::class, 'publicShow']);
 Route::get('/public/categories', [CategoryController::class, 'index']);
 
+
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('/verify-reset-code', [AuthController::class, 'verifyResetCode']);
+Route::post('/reset-password', [AuthController::class, 'resetPassword']);
+
+
 /* ========== PROTECTED ROUTES (Authentication required) ========== */
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -67,14 +73,25 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/messages/{conversation}', [MessageController::class, 'messages']);
     Route::post('/messages', [MessageController::class, 'send']);
 
+    // Messages - Get or create conversation with admin (for support chat)
+    Route::get('/admin-conversation', [MessageController::class, 'getOrCreateAdminConversation']);
+
     /* ========== ADMIN ROUTES ========== */
-    Route::middleware('admin')->group(function () {
+    Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+
         Route::get('/admin/users', [UserController::class, 'index']);
         Route::get('/admin/users/{user}', [UserController::class, 'show']);
+        Route::patch('/admin/users/{user}/trust-score', [UserController::class, 'updateTrustScore']);
+
         Route::apiResource('admin/categories', CategoryController::class);
+
+        Route::get('/admin/loans/all', [LoanController::class, 'indexAll']);
+
         // If you have ReportController:
         // Route::get('/admin/reports', [ReportController::class, 'index']);
         // Route::get('/admin/reports/{report}', [ReportController::class, 'show']);
         // Route::patch('/admin/reports/{report}', [ReportController::class, 'updateStatus']);
     });
+
+
 });
